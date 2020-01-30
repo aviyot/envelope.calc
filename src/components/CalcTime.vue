@@ -28,18 +28,18 @@
       <tr>
         <td>Total</td>
         <td>{{total}}</td>
-        <td>{{(total/(rph/minute))}}min</td>
+        <td>{{(total/(rph/minute)).toFixed(2)}}min</td>
       </tr>
       <tr>
         <td>Current</td>
         <td>{{total-current}}</td>
-        <td>{{((total-current)/(rph/minute))}}min</td>
+        <td>{{((total-current)/(rph/minute)).toFixed(2)}}min</td>
       </tr>
 
       <tr>
         <td>Bettwen</td>
         <td>{{until - from}}</td>
-        <td>{{((until - from)/(rph/minute))}}min</td>
+        <td>{{((until - from)/(rph/minute)).toFixed(2)}}min</td>
       </tr>
     </table>
     <!--     <span>Time Total:</span>
@@ -94,22 +94,22 @@ export default {
 <style scoped>
 input {
   display: inline-block;
-  width: 100px;
+  width: 80px;
   background-color: blue;
   color: white;
   font-size: large;
 }
 .calc-app {
   font-size: x-large;
-  background-color: lightgray;
   width: 80%;
   margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
+ 
 }
 
 table {
   background-color: lightcoral;
   text-align: center;
+  font-size: x-large;
+
 }
 </style>

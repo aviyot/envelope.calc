@@ -1,23 +1,24 @@
 <template>
   <div id="app">
-    <HelloWorld/>
     <CalcTime/>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 import CalcTime from "./components/CalcTime";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
     CalcTime
   }
 };
 </script>
 
 <style>
-
+#app {
+  background-color: lightgray;
+   padding-left: 20px;
+  padding-right: 20px;
+}
 </style>
