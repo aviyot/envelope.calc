@@ -1,25 +1,48 @@
 <template>
   <div class="calc-app">
-    <h2 style="text-align:center">Calc</h2>
-    <span>Speed(RPH) :</span>
-    <input v-model="rph" type="number">
-    <br>
-    <span>Total :</span>
-    <input v-model="total" type="number">
-    <br>
-    <span>Current:</span>
-    <input v-model="current" type="number">
-    <div>
-      <span>from :</span>
-      <input type="number" v-model="from">
-      <span>
-        Until :
-        <input type="number" v-model="until">
-      </span>
+    <h1 style="text-align:center">Calc</h1>
+    <div class="data">
+      <span>Speed(RPH) :</span>
+      <input v-model="rph" type="number">
+      <br>
+      <span>Total :</span>
+      <input v-model="total" type="number">
+      <br>
+      <span>Current:</span>
+      <input v-model="current" type="number">
+      <div>
+        <span>from :</span>
+        <input type="number" v-model="from">
+        <span>
+          Until :
+          <input type="number" v-model="until">
+        </span>
+      </div>
     </div>
-    <br>
-    <br>
-    <span>Time Total:</span>
+    <table>
+      <tr>
+        <th></th>
+        <th>Quntity</th>
+        <th>Time(min)</th>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td>{{total}}</td>
+        <td>{{(total/(rph/minute))}}min</td>
+      </tr>
+      <tr>
+        <td>Current</td>
+        <td>{{total-current}}</td>
+        <td>{{((total-current)/(rph/minute))}}min</td>
+      </tr>
+
+      <tr>
+        <td>Bettwen</td>
+        <td>{{until - from}}</td>
+        <td>{{((until - from)/(rph/minute))}}min</td>
+      </tr>
+    </table>
+    <!--     <span>Time Total:</span>
     {{(total/(rph/minute))}}min
     <br>
     <br>
@@ -44,7 +67,7 @@
     {{until - from}}
     <br>
     <span>Time from - until:</span>
-    {{((until - from)/(rph/minute))}}min
+    {{((until - from)/(rph/minute))}}min-->
   </div>
 </template>
 
@@ -71,16 +94,22 @@ export default {
 <style scoped>
 input {
   display: inline-block;
-  width: 60px;
+  width: 100px;
   background-color: blue;
   color: white;
+  font-size: large;
 }
 .calc-app {
-  font-size: large;
+  font-size: x-large;
   background-color: lightgray;
   width: 80%;
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+table {
+  background-color: lightcoral;
+  text-align: center;
 }
 </style>
