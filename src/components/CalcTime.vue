@@ -1,14 +1,14 @@
 <template>
   <div class="calc-app">
-    <h1>Calc</h1>
+    <h2 style="text-align:center">Calc</h2>
     <span>Speed(RPH) :</span>
-    <input v-model="rph" maxlength="8">
+    <input v-model="rph" type="number">
     <br>
     <span>Total :</span>
-    <input v-model="total">
+    <input v-model="total" type="number">
     <br>
     <span>Current:</span>
-    <input v-model="current">
+    <input v-model="current" type="number">
     <div>
       <span>from :</span>
       <input type="number" v-model="from">
