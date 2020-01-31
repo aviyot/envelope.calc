@@ -1,6 +1,6 @@
 <template>
   <div class="calc-app">
-    <h1 style="text-align:center">Calc</h1>
+    <!-- <h1 style="text-align:center">Calc</h1> -->
     <div class="data">
       <span>Speed(RPH) :</span>
       <input v-model="rph" type="number">
@@ -13,6 +13,7 @@
       <div>
         <span>from :</span>
         <input type="number" v-model="from">
+        <br>
         <span>
           Until :
           <input type="number" v-model="until">
@@ -23,23 +24,25 @@
       <tr>
         <th></th>
         <th>Quntity</th>
-        <th>Time(min)</th>
+        <th>Time</th>
       </tr>
       <tr>
         <td>Total</td>
         <td>{{total}}</td>
-        <td>{{(total/(rph/minute)).toFixed(2)}}min</td>
+        <td>{{(calc(0,total,rph,minute))}}m</td>
       </tr>
       <tr>
         <td>Current</td>
         <td>{{total-current}}</td>
-        <td>{{((total-current)/(rph/minute)).toFixed(2)}}min</td>
+        <td>{{(calc(current,total,rph,minute))}}m</td>
       </tr>
 
       <tr>
         <td>Bettwen</td>
         <td>{{until - from}}</td>
-        <td>{{((until - from)/(rph/minute)).toFixed(2)}}min</td>
+        <td>{{(calc(from,until,rph,minute))}}m</td>
+
+        <!-- <td>{{((until - from)/(rph/minute)).toFixed(2)}}m</td> -->
       </tr>
     </table>
     <!--     <span>Time Total:</span>
@@ -85,7 +88,21 @@ export default {
     minute: 60
   }),
   methods: {
-    calc: () => {}
+    calc: (f, e, r, m) => {
+      let result = (e - f) / (r / m);
+      let h = result / 60;
+      let min = result % 60;
+      if (result >= 1 && min){
+         return result.toFixed(2);
+       }
+else if(min){
+return result.toFixed();
+}
+
+      else{
+      return min;
+      }
+    }
   }
 };
 </script>
@@ -100,16 +117,13 @@ input {
   font-size: large;
 }
 .calc-app {
-  font-size: x-large;
-  width: 80%;
-  margin: 0 auto;
- 
+  font-size: large;
+  padding-left: 8px;
 }
 
 table {
   background-color: lightcoral;
   text-align: center;
-  font-size: x-large;
-
+  font-size: large;
 }
 </style>
