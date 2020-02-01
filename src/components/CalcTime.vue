@@ -90,18 +90,21 @@ export default {
   methods: {
     calc: (f, e, r, m) => {
       let result = (e - f) / (r / m);
-      let h = result / 60;
-      let min = result % 60;
-      if (result >= 1 && min){
-         return result.toFixed(2);
-       }
-else if(min){
-return result.toFixed();
-}
 
-      else{
-      return min;
-      }
+      if(Number.isInteger(result))
+         return result
+      else
+        return result.toFixed(1)
+     /*  
+      //let h = result / 60;
+      let hour = result % 60;
+      if (result >= 1 && min) {
+        return result.toFixed(2);
+      } else if (min) {
+        return result.toFixed();
+      } else {
+        return min;
+      } */
     }
   }
 };
