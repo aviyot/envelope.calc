@@ -9,12 +9,10 @@
 </template>
 
 <script>
-import CalcTime from "./components/CalcTime";
 import CalcUnit from "./components/CalcUnit";
 export default {
   name: "App",
   components: {
-    CalcTime,
     CalcUnit
   },
   data: function() {
