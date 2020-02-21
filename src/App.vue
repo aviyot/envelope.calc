@@ -1,11 +1,10 @@
 <template>
   <div id="app">
-    <div class="nav">
+    <!-- <div class="nav">
       <a @click="toggle=false">Calc Time</a>
       <a @click="toggle =true">Calc Unit</a>
-    </div>
-    <CalcTime v-if="!toggle"/>
-    <CalcUnit v-if="toggle"/>
+    </div>-->
+    <CalcUnit/>
   </div>
 </template>
 
@@ -29,18 +28,7 @@ export default {
   background-color: lightgray;
 }
 
-.nav {
-  display: flex;
-  font-size: x-large;
-  
-}
-
-.nav a {
-margin: 10px;
-}
-
-.two-column-grid {
-display: grid;
-grid-template-columns: 2fr 1fr;
+input {
+  min-width: 60px;
 }
 </style>

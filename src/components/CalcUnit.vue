@@ -1,58 +1,89 @@
-<template>
-  <div>
-    <!-- <h1>Unit Calc</h1> -->
-    <div class="input-section">
-      <span>Envelopes Amount</span>
-      <input type="number" v-model="envelopesAmount">
-      <span>Invoices Amount</span>
-      <input type="number" v-model="invoicesAmount">
-      <span>Zruphot Amount</span>
-      <input type="number" v-model="zruphotAmount">
-      <span>Zruphot Pages</span>
-      <input type="number" v-model="zruphotPages">
-      <span>Thickness(cm)</span>
-      <input type="number" v-model="thickness">
-    </div>
-    <div>
-      <span>Thickness : {{sizeUnit}}%</span>
-    </div>
-    <div>
-      <span>Half Unit Size :{{envelopesUnitAmount}}</span>
-      <br>
-      <span>Unit Size :{{envelopesUnitAmount * 2}}</span>
-    </div>
+<style>
+.input-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  background-color: yellowgreen;
+}
 
-    <div>
-      <h3>Broad Calc</h3>
-      <div class="two-column-grid">
-        <label>Half Unit Size:</label>
-        <input type="number" v-model="manualUnitSize">
-        
+.clac-result span {
+  display: block;
+}
+
+.clac-result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.calc-unit {
+}
+.clac-result input {
+  max-width: 50px;
+}
+
+.time-unit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+</style>
+<template>
+  <div class="calc-unit">
+    <div class="time-unit">
+      <div class="input-section">
+        <span>Envelopes</span>
+        <input type="number" v-model="envelopesAmount">
+        <span>Invoices</span>
+        <input type="number" v-model="invoicesAmount">
+        <span>Zruphot</span>
+        <input type="number" v-model="zruphotAmount">
+        <span>Zruphot</span>
+        <input type="number" v-model="zruphotPages">
+        <span>Thickness(cm)</span>
+        <input type="number" v-model="thickness">
         <label>Size Board</label>
         <input type="number" v-model="boardSize">
       </div>
-      <!-- <span>Calc: number of evelopes on 1 floor : {{boardSize * envelopesUnitAmount*2}}</span><br> -->
-      <span>Manual: number of evelopes on 1 floor : {{boardSize * manualUnitSize*2}}</span>
+      <CalcTime/>
+    </div>
+    <div class="clac-result">
       <div>
-        <span>Number of floors {{envelopesAmount/(boardSize * manualUnitSize*2)}}</span>
+        <h4>Cumputed</h4>
+        <span>Half Unit Size :{{envelopesUnitAmount}}</span>
+        <span>1 floor : {{envelopesUnitAmount*2}} * {{boardSize }} = {{boardSize * envelopesUnitAmount* 2}}</span>
+        <span>Floors : {{(envelopesAmount/(boardSize * envelopesUnitAmount*2)) | fixed(1)}}</span>
+      </div>
+      <div>
+        <h4>Manual</h4>
+        <label>Half Unit Size:</label>
+        <input type="number" v-model="manualUnitSize">
+        <span>1 floor : {{manualUnitSize*2 }} * {{boardSize }} = {{boardSize * manualUnitSize*2}}</span>
+        <span>Floors : {{(envelopesAmount/(boardSize * manualUnitSize*2))| fixed(1)}}</span>
       </div>
     </div>
   </div>
 </template>
 <script>
+import CalcTime from "./CalcTime";
 export default {
   name: "CalcUnit",
+  components: {
+    CalcTime
+  },
   data: () => ({
     envelopesAmount: 1,
-    invoicesAmount: 1,
+    invoicesAmount: 2,
     zruphotAmount: 1,
     zruphotPages: 0,
     pagesToUnit: 5,
-    thickness: 12,
-    pageThickness: 0.134,
-    manualUnitSize: 90,
+    thickness: 8,
+    pageThickness: 0.095,
+    manualUnitSize: 85,
     boardSize: 16
   }),
+  filters: {
+    fixed: function(value, size) {
+      value = +value;
+      return value.toFixed(size);
+    }
+  },
   computed: {
     sizeUnit: function() {
       let envelopesPrec = 3 / this.pagesToUnit;
@@ -76,11 +107,3 @@ export default {
   }
 };
 </script>
-<style>
-.input-section {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  width: 80%;
-  margin: 0 auto;
-}
-</style>
