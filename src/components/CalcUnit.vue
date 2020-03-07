@@ -13,10 +13,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-.calc-unit {
-}
+
 .clac-result input {
-  max-width: 50px;
+  max-width: 20px;
 }
 
 .time-unit {
@@ -34,7 +33,7 @@
         <input type="number" v-model="invoicesAmount">
         <span>Zruphot</span>
         <input type="number" v-model="zruphotAmount">
-        <span>Zruphot</span>
+        <span>Zruphot Pages</span>
         <input type="number" v-model="zruphotPages">
         <span>Thickness(cm)</span>
         <input type="number" v-model="thickness">
@@ -46,15 +45,15 @@
     <div class="clac-result">
       <div>
         <h4>Cumputed</h4>
-        <span>Half Unit Size :{{envelopesUnitAmount}}</span>
-        <span>1 floor : {{envelopesUnitAmount*2}} * {{boardSize }} = {{boardSize * envelopesUnitAmount* 2}}</span>
+        <span>half Size : {{envelopesUnitAmount}}</span>
+        <span>1 floor : {{boardSize * envelopesUnitAmount* 2}}</span>
         <span>Floors : {{(envelopesAmount/(boardSize * envelopesUnitAmount*2)) | fixed(1)}}</span>
       </div>
       <div>
         <h4>Manual</h4>
-        <label>Half Unit Size:</label>
+        <label>half Size : </label>
         <input type="number" v-model="manualUnitSize">
-        <span>1 floor : {{manualUnitSize*2 }} * {{boardSize }} = {{boardSize * manualUnitSize*2}}</span>
+        <span>1 floor : {{boardSize * manualUnitSize*2}}</span>
         <span>Floors : {{(envelopesAmount/(boardSize * manualUnitSize*2))| fixed(1)}}</span>
       </div>
     </div>
@@ -70,12 +69,12 @@ export default {
   data: () => ({
     envelopesAmount: 1,
     invoicesAmount: 1,
-    zruphotAmount: 1,
-    zruphotPages: 0,
+    zruphotAmount: 0,
+    zruphotPages: 1,
     pagesToUnit: 8,
-    thickness: 8,
+    thickness: 7.4,
     pageThickness: 0.1,
-    glueThickness: 0.2,
+    glueThickness: 0.1,
     manualUnitSize: 85,
     boardSize: 16
   }),
