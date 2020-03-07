@@ -1,4 +1,4 @@
-<style>
+ <style>
 .input-section {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -45,13 +45,16 @@
     <div class="clac-result">
       <div>
         <h4>Cumputed</h4>
-        <span>half Size : {{envelopesUnitAmount}}</span>
-        <span>1 floor : {{boardSize * envelopesUnitAmount* 2}}</span>
+        <span>Half Size : {{envelopesUnitAmount}}</span>
+        <span>One floor : {{boardSize * envelopesUnitAmount* 2}}</span>
         <span>Floors : {{(envelopesAmount/(boardSize * envelopesUnitAmount*2)) | fixed(1)}}</span>
+        <!-- <span>{{floors(envelopesUnitAmount)}}</span> -->
+        <span>For {{floors(envelopesUnitAmount)}} floors :{{Math.ceil(envelopesAmount/(floors(envelopesUnitAmount)*boardSize*2))}}</span>
+        <span>Max : {{floors(envelopesUnitAmount)*boardSize*2*Math.ceil(envelopesAmount/(floors(envelopesUnitAmount)*boardSize*2))}} </span>
       </div>
       <div>
         <h4>Manual</h4>
-        <label>half Size : </label>
+        <label>half Size :</label>
         <input type="number" v-model="manualUnitSize">
         <span>1 floor : {{boardSize * manualUnitSize*2}}</span>
         <span>Floors : {{(envelopesAmount/(boardSize * manualUnitSize*2))| fixed(1)}}</span>
@@ -67,8 +70,8 @@ export default {
     CalcTime
   },
   data: () => ({
-    envelopesAmount: 1,
-    invoicesAmount: 1,
+    envelopesAmount: 10000,
+    invoicesAmount: 10000,
     zruphotAmount: 0,
     zruphotPages: 1,
     pagesToUnit: 8,
@@ -82,6 +85,17 @@ export default {
     fixed: function(value, size) {
       value = +value;
       return value.toFixed(size);
+    }
+  },
+  methods: {
+    floors: function(envelopesUnitAmount) {
+      let fl =
+        this.envelopesAmount / (this.boardSize * envelopesUnitAmount * 2);
+      if (fl - Math.floor(fl) > 0.5) {
+        return Math.ceil(fl);
+      } else {
+        return Math.floor(fl);
+      }
     }
   },
   computed: {
@@ -105,6 +119,15 @@ export default {
     },
     unitAmount: function() {
       return Math.round(this.thickness / this.pageThickness);
+    },
+    floorss: function() {
+      return (
+        this.envelopesAmount / (this.boardSize * this.envelopesUnitAmount * 2)
+      );
+    },
+    roundFloor: function() {
+      let roundFloor = 1;
+      return roundFloor;
     }
   }
 };
