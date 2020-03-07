@@ -69,12 +69,13 @@ export default {
   },
   data: () => ({
     envelopesAmount: 1,
-    invoicesAmount: 2,
+    invoicesAmount: 1,
     zruphotAmount: 1,
     zruphotPages: 0,
-    pagesToUnit: 5,
+    pagesToUnit: 8,
     thickness: 8,
-    pageThickness: 0.095,
+    pageThickness: 0.1,
+    glueThickness: 0.2,
     manualUnitSize: 85,
     boardSize: 16
   }),
@@ -89,9 +90,11 @@ export default {
       let envelopesPrec = 3 / this.pagesToUnit;
       let invoicesPrec = 2 / this.pagesToUnit;
       let zruphotPrec = 1 / this.pagesToUnit;
+      let gluePrec = 2 / this.pagesToUnit;
 
       return (
         envelopesPrec +
+        gluePrec +
         (this.invoicesAmount / this.envelopesAmount) * invoicesPrec +
         this.zruphotPages *
           zruphotPrec *
