@@ -12,7 +12,7 @@
     <div>
       <span>Amount : {{from-until + 1}}</span>
       <br>
-      <span>Time : {{(calc(from,until,rph,minute))}}m</span>
+      <span>Time : {{(calcTime(from,until,rph,minute))}}</span>
     </div>
   </div>
 </template>
@@ -29,21 +29,17 @@ export default {
     minute: 60
   }),
   methods: {
-    calc: (f, e, r, m) => {
+    calcTime: (f, e, r, m) => {
       let result = (f - e) / (r / m);
 
-      if (Number.isInteger(result)) return result;
-      else return result.toFixed(1);
-      /*  
-      //let h = result / 60;
-      let hour = result % 60;
-      if (result >= 1 && min) {
-        return result.toFixed(2);
-      } else if (min) {
-        return result.toFixed();
-      } else {
-        return min;
-      } */
+      let hr = Math.floor(result/60);
+      let min  = result % 60;
+
+      hr = hr < 10 ? '0' + hr : hr;
+      min = min < 10 ? '0' + min.toFixed() : min.toFixed();
+
+      return `${hr}h:${min}m`
+
     }
   }
 };

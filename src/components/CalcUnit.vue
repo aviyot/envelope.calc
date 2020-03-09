@@ -57,7 +57,10 @@
         <label>half Size :</label>
         <input type="number" v-model="manualUnitSize">
         <span>1 floor : {{boardSize * manualUnitSize*2}}</span>
-        <span>Floors : {{(envelopesAmount/(boardSize * manualUnitSize*2))| fixed(1)}}</span>
+        <span>Floors : {{(envelopesAmount/(boardSize * manualUnitSize*2)) | fixed(2)}}</span>
+      <span>For {{floors(manualUnitSize)}} floors :{{Math.ceil(envelopesAmount/(floors(manualUnitSize)*boardSize*2))}}</span>
+      <span>Max : {{floors(manualUnitSize)*boardSize*2*Math.ceil(envelopesAmount/(floors(manualUnitSize)*boardSize*2))}} </span>
+
       </div>
     </div>
   </div>
