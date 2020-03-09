@@ -13,11 +13,15 @@
       <span>Amount : {{from-until + 1}}</span>
       <br>
       <span>Time : {{(calcTime(from,until,rph,minute))}}</span>
+      <br>
+      <span>End Time : {{endTime}}</span>
     </div>
   </div>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "CalcTime",
   props: {},
@@ -26,20 +30,24 @@ export default {
     from: 10000,
     until: 1,
     intialRPR: 10000,
-    minute: 60
+    minute: 60,
+    endTime: 0
   }),
   methods: {
-    calcTime: (f, e, r, m) => {
+    calcTime: function(f, e, r, m) {
       let result = (f - e) / (r / m);
+      let hr = Math.floor(result / 60);
+      let min = result % 60;
 
-      let hr = Math.floor(result/60);
-      let min  = result % 60;
+      hr = hr < 10 ? "0" + hr : hr;
+      min = min < 10 ? "0" + min.toFixed() : min.toFixed();
 
-      hr = hr < 10 ? '0' + hr : hr;
-      min = min < 10 ? '0' + min.toFixed() : min.toFixed();
-
-      return `${hr}h:${min}m`
-
+      
+      this.endTime = moment()
+        .add(result, "minutes")
+        .format("HH:mm:ss");
+      //return moment().add(result,"minutes").format("HH:mm:ss")
+      return `${hr}h:${min}m`;
     }
   }
 };
@@ -51,6 +59,7 @@ export default {
 .data {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  
 }
+
+
 </style>
