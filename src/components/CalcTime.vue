@@ -12,7 +12,7 @@
     <div>
       <span>Amount : {{from-until + 1}}</span>
       <br>
-      <span>Time : {{(calcTime(from,until,rph,minute))}}</span>
+      <span>Duration Time : {{(calcTime(from,until,rph,minute))}}</span>
       <br>
       <span>End Time : {{endTime}}</span>
     </div>
@@ -21,6 +21,7 @@
 
 <script>
 import moment from "moment";
+import "moment-duration-format";
 
 export default {
   name: "CalcTime",
@@ -36,18 +37,13 @@ export default {
   methods: {
     calcTime: function(f, e, r, m) {
       let result = (f - e) / (r / m);
-      let hr = Math.floor(result / 60);
-      let min = result % 60;
+      const dr = moment.duration(Math.round(result), "minutes");
 
-      hr = hr < 10 ? "0" + hr : hr;
-      min = min < 10 ? "0" + min.toFixed() : min.toFixed();
-
-      
       this.endTime = moment()
         .add(result, "minutes")
         .format("HH:mm:ss");
-      //return moment().add(result,"minutes").format("HH:mm:ss")
-      return `${hr}h:${min}m`;
+    //  return `${dr.asHours()}h:${dr.asMinutes()}m`;
+    return dr.format("hh:mm")
     }
   }
 };
@@ -60,6 +56,4 @@ export default {
   display: grid;
   grid-template-columns: 2fr 1fr;
 }
-
-
 </style>
