@@ -14,7 +14,6 @@
 
 <script>
 import { store } from "./store/store";
-import CalcUnit from "./components/CalcUnit";
 import Packaging from "./components/Packaging";
 import Order from "./components/Order";
 import CalcTime from "./components/CalcTime";
@@ -24,7 +23,6 @@ export default {
   store,
   name: "App",
   components: {
-    CalcUnit,
     Packaging,
     Order,
     CalcTime,
