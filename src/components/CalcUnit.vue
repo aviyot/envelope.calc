@@ -43,23 +43,32 @@
       <CalcTime/>
     </div>
     <div class="clac-result">
+      <button v-on:click = "setEnv">Commit</button>
       <div>
         <h4>Cumputed</h4>
         <span>Half Size : {{envelopesUnitAmount}}</span>
         <span>One floor : {{boardSize * envelopesUnitAmount* 2}}</span>
         <span>Floors : {{(envelopesAmount/(boardSize * envelopesUnitAmount*2)) | fixed(1)}}</span>
-        <!-- <span>{{floors(envelopesUnitAmount)}}</span> -->
         <span>For {{floors(envelopesUnitAmount)}} floors :{{Math.ceil(envelopesAmount/(floors(envelopesUnitAmount)*boardSize*2))}}</span>
         <span>Max : {{floors(envelopesUnitAmount)*boardSize*2*Math.ceil(envelopesAmount/(floors(envelopesUnitAmount)*boardSize*2))}} </span>
       </div>
       <div>
-        <h4>Manual</h4>
+       <!--  <h4>Manual</h4>
         <label>half Size :</label>
         <input type="number" v-model="manualUnitSize">
         <span>1 floor : {{boardSize * manualUnitSize*2}}</span>
         <span>Floors : {{(envelopesAmount/(boardSize * manualUnitSize*2)) | fixed(2)}}</span>
       <span>For {{floors(manualUnitSize)}} floors :{{Math.ceil(envelopesAmount/(floors(manualUnitSize)*boardSize*2))}}</span>
       <span>Max : {{floors(manualUnitSize)*boardSize*2*Math.ceil(envelopesAmount/(floors(manualUnitSize)*boardSize*2))}} </span>
+ -->      
+  <h4>Manual</h4>
+        <label>half Size :</label>
+        <input type="number" v-model="manualUnitSize">
+        <span>1 floor : {{boardSize * manualUnitSize*2}}</span>
+        <span>Floors : {{(envelopesAmount/(boardSize * manualUnitSize*2)) | fixed(2)}}</span>
+      <span>For {{floors(manualUnitSize)}} floors :{{Math.ceil(envelopesAmount/(floors(manualUnitSize)*boardSize*2))}}</span>
+      <span>Max : {{floors(manualUnitSize)*boardSize*2*Math.ceil(envelopesAmount/(floors(manualUnitSize)*boardSize*2))}} </span>
+
 
       </div>
     </div>
@@ -72,6 +81,9 @@ export default {
   components: {
     CalcTime
   },
+ updated(){
+       console.log(this.sizeOnRange(8000,4000))
+ },
   data: () => ({
     envelopesAmount: 10000,
     invoicesAmount: 10000,
@@ -90,7 +102,16 @@ export default {
       return value.toFixed(size);
     }
   },
+  mounted :function(){
+     console.log(this.$store.state.order);
+    console.log(this.$store.getters.double);
+},
   methods: {
+setEnv:function(){
+        console.log(this.$store.state);
+        this.$store.commit("setEnvelopesAmount");
+        console.log(this.$store.state);
+},
     floors: function(envelopesUnitAmount) {
       let fl =
         this.envelopesAmount / (this.boardSize * envelopesUnitAmount * 2);
@@ -99,6 +120,25 @@ export default {
       } else {
         return Math.floor(fl);
       }
+    },
+    sizeOnRange : function(from,until){
+      let envelopesRange = from - until;
+      let invoicesFrom = from * this.invoicesAmount / this.envelopesAmount;
+      let invoicesUntil = until * this.invoicesAmount / this.envelopesAmount;
+      let invoicesRange = envelopesRange * (this.invoicesAmount / this.envelopesAmount);
+      let zruphotRange = envelopesRange * (this.zruphotAmount / this.envelopesAmount);       
+
+     
+
+      return { envelopesRange,
+               zruphotRange,
+              invoices : {
+               invoicesRange,
+               invoicesFrom,
+               invoicesUntil
+              }
+            }
+
     }
   },
   computed: {
@@ -112,26 +152,17 @@ export default {
         envelopesPrec +
         gluePrec +
         (this.invoicesAmount / this.envelopesAmount) * invoicesPrec +
-        this.zruphotPages *
-          zruphotPrec *
-          (this.zruphotAmount / this.envelopesAmount)
+        (this.zruphotPages * this.zruphotAmount / this.envelopesAmount) * zruphotPrec
       );
     },
+ unitAmount: function() {
+      return Math.round(this.thickness / this.pageThickness);
+    },
+    // חצי חבילת המעטפות 
     envelopesUnitAmount: function() {
       return Math.round(this.unitAmount / this.sizeUnit);
     },
-    unitAmount: function() {
-      return Math.round(this.thickness / this.pageThickness);
-    },
-    floorss: function() {
-      return (
-        this.envelopesAmount / (this.boardSize * this.envelopesUnitAmount * 2)
-      );
-    },
-    roundFloor: function() {
-      let roundFloor = 1;
-      return roundFloor;
-    }
+   
   }
 };
 </script>

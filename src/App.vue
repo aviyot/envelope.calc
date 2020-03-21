@@ -1,32 +1,59 @@
 <template>
   <div id="app">
-    <!-- <div class="nav">
-      <a @click="toggle=false">Calc Time</a>
-      <a @click="toggle =true">Calc Unit</a>
-    </div>-->
-    <CalcUnit/>
+    <div class="main">
+      <Order class="order"/>
+      <Packaging class="packaing"/>
+      <div class="calc-result">
+        <Board class="board"/>
+        <CalcTime class="calc-time"/>
+      </div>
+    </div>
+    <button v-on:click="restState">Reset</button>
   </div>
 </template>
 
 <script>
+import { store } from "./store/store";
 import CalcUnit from "./components/CalcUnit";
+import Packaging from "./components/Packaging";
+import Order from "./components/Order";
+import CalcTime from "./components/CalcTime";
+import Board from "./components/Board";
+
 export default {
+  store,
   name: "App",
   components: {
-    CalcUnit
+    CalcUnit,
+    Packaging,
+    Order,
+    CalcTime,
+    Board
   },
-  data: function() {
-    return { toggle: false };
+  methods: {
+    restState() {
+      this.$store.commit("restState");
+    }
+  },
+  beforeCreate() {
+    this.$store.commit("initialiseStore");
   }
 };
 </script>
 
 <style>
-#app {
-  background-color: lightgray;
-}
-
 input {
   min-width: 60px;
 }
+
+.main {
+  margin: 10px 10px;
+  display: grid;
+  grid-row-gap: 16px;
+}
+.calc-result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 </style>
