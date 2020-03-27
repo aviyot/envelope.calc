@@ -1,61 +1,57 @@
 <template>
   <div class="board">
     <div>PACKAGE</div>
-    <span>One floor : {{ boardSize * envelopePackageAmount }}</span>
-    <span>Floors : {{ calBoardFloors.floors | fixed(2) }}</span>
-    <span>For {{ calBoardFloors.fullFloors }} floors :{{ packageFullFloor }}</span>
-    <span
-      v-if="!isEqualMax"
-    >{{calBoardFloors.fullFloors * boardSize - 1}} P + {{ envelopesBetweenAmount - (calBoardFloors.fullFloors * boardSize - 1) * packageFullFloor * 2 }} En</span>
-    <span v-if="isEqualMax">{{calBoardFloors.fullFloors * boardSize}} Packages</span>
-    <span>Max Board : {{ maxAmount }}</span>
+    <div class="floors">
+    <div>Floors : {{ calBoardFloors.floors | fixed(2) }}</div>
+    <div >
+      <span>
+        {{packageAmount(envelopePackageAmount).fullPackageAmount}}<span>P</span>
+        <span> X</span>
+        {{envelopePackageAmount}}<span>E</span>
+      </span>
+      <span v-if="!isEqualMax">+ {{packageAmount(envelopePackageAmount).lastPackageEnvelopesAmount}}E</span>
+    </div>
+    </div>
+    <div class ="full-floors">
+    <div>For {{ calBoardFloors.fullFloors }} floors :{{ packageFullFloor }}</div>
+    <div>
+      <span>Thickness : </span>
+      <span> {{packageThickness}}</span>
+    </div >
+      <span>
+        {{packageAmount(packageFullFloor*2).fullPackageAmount}}
+        <span>X</span>
+        {{packageFullFloor*2}}
+      </span>
+      <span v-if="!isEqualMax">+ {{packageAmount(packageFullFloor*2).lastPackageEnvelopesAmount}}</span>
+    </div>
+      <div>Max Board : {{ maxAmount }}</div>
+
+  </div>
+
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Board",
   computed: {
-    envelopePackageAmount() {
-      return this.$store.getters.envelopePackageAmount;
-    },
-    isEqualMax() {
-      return this.maxAmount === this.envelopesBetweenAmount;
-    },
-    boardSize() {
-      return this.$store.state.board.boardSize;
-    },
-    envelopesAmount() {
-      return this.$store.state.order.envelopesAmount;
-    },
-    envelopesBetweenAmount() {
-      return this.$store.getters.envelopesBetweenAmount;
-    },
-    calBoardFloors() {
-      //envelopePackageAmount, boardSize, envelopesAmount
-      return this.$store.getters.calBoardFloors(
-        this.envelopePackageAmount,
-        this.boardSize,
-        this.envelopesBetweenAmount
-      );
-    },
-    packageFullFloor() {
-      return Math.ceil(
-        this.envelopesBetweenAmount /
-          (this.calBoardFloors.fullFloors * this.boardSize * 2)
-      );
-    },
-    maxAmount() {
-      return (
-        this.calBoardFloors.fullFloors *
-        this.boardSize *
-        2 *
-        Math.ceil(
-          this.envelopesBetweenAmount /
-            (this.calBoardFloors.fullFloors * this.boardSize * 2)
-        )
-      );
-    }
+    ...mapGetters([
+      "envelopePackageAmount",
+      "boardSize",
+      "envelopesAmount",
+      "envelopesBetweenAmount",
+      "calBoardFloors",
+      "isEqualMax",
+      "packageFullFloor",
+      "maxAmount",
+      "packageFullFloor",
+      "packageAmount",
+      "packageFullFloor",
+      "packageThickness"
+    ])
   },
   filters: {
     fixed: function(value, size) {
@@ -66,7 +62,11 @@ export default {
 };
 </script>
 <style>
-.board span {
-  display: block;
+
+.full-floors {
+margin: 5px;
+}
+.floors {
+  margin: 5px;
 }
 </style>

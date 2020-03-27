@@ -1,10 +1,33 @@
 export default {
+
   order: {
     envelopesAmount: 10000,
     invoicesAmount: 10000,
     zruphotAmount: 0,
     zruphotPages: 1
   },
+  dist: [
+    {
+      name: "S",
+      orderFrom: 1,
+      orderUntil: 1000
+    },
+    {
+      name: "N",
+      orderFrom: 1,
+      orderUntil: 1000
+    },
+    {
+      name: "I",
+      orderFrom: 1,
+      orderUntil: 10000
+    },
+    {
+      name: "M",
+      orderFrom: 1,
+      orderUntil: 10000
+    }
+  ],
   board: {
     thickness: 75,
     boardSize: 16,
@@ -24,5 +47,4 @@ export default {
     zruphotPages: 0,
     glueThickness: 0.16
   }
-}
-
+};

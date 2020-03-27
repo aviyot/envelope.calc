@@ -5,7 +5,7 @@ import intialState from "./intialState";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-  state: { ...intialState },
+  state: {...intialState},
   plugins: [
     store => {
       store.subscribe((mutation, state) => {
@@ -14,6 +14,9 @@ export const store = new Vuex.Store({
     }
   ],
   getters: {
+    packageThickness : state =>{
+      return (store.getters.envelopeThickness * store.getters.packageFullFloor * 2).toFixed(1)
+    },
     envelopeThickness: state => {
       let envelopesAmount = state.order.envelopesAmount;
       let ratioInvoice = state.order.invoicesAmount / envelopesAmount;
@@ -38,6 +41,9 @@ export const store = new Vuex.Store({
         0.5 * glueThickness
       );
     },
+boardSize : state=>{
+  return state.board.boardSize;
+},
 
     envelopePackageAmount: state => {
       let ep = state.board.thickness / store.getters.envelopeThickness;
@@ -51,22 +57,47 @@ export const store = new Vuex.Store({
     envelopesBetweenAmount: state => {
       return state.board.orderUntil - state.board.orderFrom + 1;
     },
-    calBoardFloors: () => (
-      envelopePackageAmount,
-      boardSize,
-      envelopesAmount
-    ) => {
+    packageAmount : (state)=>(envelopePackageAmount) =>{
+     const packageAmount = store.getters.envelopesBetweenAmount / envelopePackageAmount;
+      const fullPackageAmount = Math.floor(packageAmount);
+      const lastPackageEnvelopesAmount =  store.getters.envelopesBetweenAmount % envelopePackageAmount
+        return {
+          fullPackageAmount,
+          lastPackageEnvelopesAmount
+        } ;
+    },
+    isEqualMax : () => {
+      return store.getters.maxAmount === store.getters.envelopesBetweenAmount;
+    },
+    maxAmount: (state)=> {
+      return (
+        store.getters.calBoardFloors.fullFloors *
+        state.board.boardSize *
+        2 *
+        Math.ceil(
+          store.getters.envelopesBetweenAmount /
+            ( store.getters.calBoardFloors.fullFloors * state.board.boardSize * 2)
+        )
+      );
+    },
+    
+    packageFullFloor : (state) => {
+      return Math.ceil(
+        store.getters.envelopesBetweenAmount /
+          (store.getters.calBoardFloors.fullFloors * state.board.boardSize * 2)
+      );
+    },
+   
+    calBoardFloors:  state => {
       let fullFloors = 0;
-      let floors = 0;
-      floors = envelopesAmount / (boardSize * envelopePackageAmount);
+     let  floors = store.getters.envelopesBetweenAmount / (state.board.boardSize * store.getters.envelopePackageAmount);
       if (floors - Math.floor(floors) > 0.5) {
         fullFloors = Math.ceil(floors);
       } else {
         fullFloors = Math.floor(floors);
       }
 
-if(fullFloors === 0)
-   fullFloors = 1;
+      if (fullFloors === 0) fullFloors = 1;
       return {
         fullFloors,
         floors
@@ -75,13 +106,12 @@ if(fullFloors === 0)
   },
   mutations: {
     restState(state) {
-      localStorage.setItem("store", JSON.stringify({...intialState}));
+      localStorage.setItem("store", JSON.stringify({ ...intialState }));
       this.replaceState(
         Object.assign(state, JSON.parse(localStorage.getItem("store")))
       );
     },
     initialiseStore(state) {
-     console.log("intialze");
       if (localStorage.getItem("store")) {
         this.replaceState(
           Object.assign(state, JSON.parse(localStorage.getItem("store")))
@@ -113,7 +143,7 @@ if(fullFloors === 0)
       state.board.orderUntil = orderUntil;
     },
     updateSpeedConveyor(state, speedConveyor) {
-      state.board.speedConveyor = speedConveyor;
+      state.machine.speedConveyor = speedConveyor;
     }
   }
 });

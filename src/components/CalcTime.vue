@@ -8,6 +8,8 @@
         </div>
         <div>Duration : {{durationTime}}</div>
         <div>End : {{endTime}}</div>
+       <div>1 minute : {{envelopePerMinute}}En</div>
+        
       </div>
   </div>
 </template>
@@ -44,6 +46,11 @@ export default {
       return moment()
         .add(this.durationMinute, "minutes")
         .format("HH:mm:ss");
+    },
+    envelopePerMinute :function(){
+      const MINUTE = 60;
+
+      return  (this.speedConveyor/MINUTE).toFixed(1);
     }
   }
 };

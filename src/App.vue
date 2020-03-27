@@ -2,6 +2,7 @@
   <div id="app">
     <div class="main">
       <Order class="order"/>
+      <Distribution class="distribution"/>
       <Packaging class="packaing"/>
       <div class="calc-result">
         <Board class="board"/>
@@ -18,6 +19,7 @@ import Packaging from "./components/Packaging";
 import Order from "./components/Order";
 import CalcTime from "./components/CalcTime";
 import Board from "./components/Board";
+import Distribution from "./components/Distribution"
 
 export default {
   store,
@@ -26,7 +28,8 @@ export default {
     Packaging,
     Order,
     CalcTime,
-    Board
+    Board,
+    Distribution
   },
   methods: {
     restState() {
@@ -39,10 +42,7 @@ export default {
 };
 </script>
 
-<style>
-input {
-  min-width: 60px;
-}
+<style >
 
 .main {
   margin: 10px 10px;
@@ -54,4 +54,7 @@ input {
   grid-template-columns: 1fr 1fr;
 }
 
+input {
+max-width: 60px;
+}
 </style>
