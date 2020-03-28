@@ -1,5 +1,8 @@
 export default {
 
+componentDisplay : {
+  distribution:true
+},
   order: {
     envelopesAmount: 10000,
     invoicesAmount: 10000,

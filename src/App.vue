@@ -2,7 +2,17 @@
   <div id="app">
     <div class="main">
       <Order class="order"/>
-      <Distribution class="distribution"/>
+       <div >
+  
+    <div v-on:click="toggleDisplayComp()">
+      <span>Distribution </span>
+    <button v-if="!componentDisplay.distribution"> Show </button>
+    <button v-if="componentDisplay.distribution" > Hide </button>
+
+  </div>
+    
+      <Distribution v-if="componentDisplay.distribution" class="distribution"/>
+      </div>
       <Packaging class="packaing"/>
       <div class="calc-result">
         <Board class="board"/>
@@ -14,7 +24,9 @@
 </template>
 
 <script>
+
 import { store } from "./store/store";
+import { mapMutations,mapState} from "vuex"
 import Packaging from "./components/Packaging";
 import Order from "./components/Order";
 import CalcTime from "./components/CalcTime";
@@ -31,10 +43,19 @@ export default {
     Board,
     Distribution
   },
+ computed : {
+...mapState ([
+   'componentDisplay'
+])
+ },
   methods: {
+    ...mapMutations([
+      'toggleDisplayComp'
+    ]),
     restState() {
       this.$store.commit("restState");
-    }
+    },
+
   },
   beforeCreate() {
     this.$store.commit("initialiseStore");
@@ -52,6 +73,9 @@ export default {
 .calc-result {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+.calc-time {
+   
 }
 
 input {

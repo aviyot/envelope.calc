@@ -1,26 +1,45 @@
 <style>
 .package {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.package div {
+ display: grid;
+  grid-template-columns: 1fr;
 }
 
 </style>
 <template>
   <div>
     <div class="package">
-      <label>From</label>
-      <input type="number" v-model="orderFrom">
-      <label>Until</label>
-      <input type="number" v-model="orderUntil">
-      <label>Total</label>
-      <span> {{orderUntil - (orderFrom- 1) }}</span>
-      <span>Thick(mm)</span>
-      <input type="number" v-model="thickness">
-      <label>Board</label>
-      <input type="number" v-model="boardSize">
+     <div>
+        <label>From</label>
+        <input type="number" v-model="orderFrom">
+      </div>
+      <div>
+        <label>Until</label>
+        <input type="number" v-model="orderUntil">
+      </div>
+      <div>
+        <label>Total</label>
+        <span> {{orderUntil - (orderFrom- 1) }}</span>
+      </div>
+      <div>
+        <span>Thick(mm)</span>
+        <input type="number" v-model="thickness">
+      </div>
+      <div>
+        <label>Board</label>
+        <input type="number" v-model="boardSize">
+      </div>
+      <div>
+          <label>Package </label>
+          <span> {{envelopePackageAmount / 2}} X 2 = {{envelopePackageAmount}}</span>
+
+      </div>
     </div>
    
-    <div>Package : {{envelopePackageAmount / 2}} <span>X 2</span><span> = {{envelopePackageAmount}}</span> </div>
   </div>
 </template>
 <script>

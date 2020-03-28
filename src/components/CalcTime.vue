@@ -3,12 +3,15 @@
     <div>
         <div class="time-title">TIME</div>
         <div class="speed-time">
-        <label>Speed(RPH)</label>
+        <label>Speed </label>
         <input v-model="speedConveyor" type="number">
-        </div>
-        <div>Duration : {{durationTime}}</div>
-        <div>End : {{endTime}}</div>
-       <div>1 minute : {{envelopePerMinute}}En</div>
+        <label>Duration </label>
+        <span>{{durationTime}}</span>
+        <label>End  </label>
+        <span>{{endTime}}</span>
+       <label> 1 Minute </label>
+       <span> {{envelopePerMinute}}</span>
+       </div>
         
       </div>
   </div>
@@ -31,11 +34,7 @@ export default {
     },
     durationMinute: function() {
       const MINUTE = 60;
-      let orderFrom = this.$store.state.board.orderFrom;
-      let orderUntil = this.$store.state.board.orderUntil;
-      let minuteDuration =
-        (orderUntil - orderFrom) / (this.speedConveyor / MINUTE);
-      return minuteDuration;
+      return   (this.$store.getters.envelopesBetweenAmount) / (this.speedConveyor / MINUTE);
     },
     durationTime: function() {
       return moment
@@ -48,9 +47,8 @@ export default {
         .format("HH:mm:ss");
     },
     envelopePerMinute :function(){
-      const MINUTE = 60;
-
-      return  (this.speedConveyor/MINUTE).toFixed(1);
+  
+      return  (this.speedConveyor/60).toFixed(1);
     }
   }
 };
@@ -74,6 +72,6 @@ export default {
 
 .speed-time{
   display: grid;
-grid-template-columns: 2fr 1fr;
+grid-template-columns: 1fr 1fr;
 }
 </style>

@@ -5,7 +5,7 @@ import intialState from "./intialState";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-  state: {...intialState},
+  state: { ...intialState },
   plugins: [
     store => {
       store.subscribe((mutation, state) => {
@@ -14,8 +14,12 @@ export const store = new Vuex.Store({
     }
   ],
   getters: {
-    packageThickness : state =>{
-      return (store.getters.envelopeThickness * store.getters.packageFullFloor * 2).toFixed(1)
+    packageThickness: () => {
+      return (
+        store.getters.envelopeThickness *
+        store.getters.packageFullFloor *
+        2
+      ).toFixed(1);
     },
     envelopeThickness: state => {
       let envelopesAmount = state.order.envelopesAmount;
@@ -41,9 +45,9 @@ export const store = new Vuex.Store({
         0.5 * glueThickness
       );
     },
-boardSize : state=>{
-  return state.board.boardSize;
-},
+    boardSize: state => {
+      return state.board.boardSize;
+    },
 
     envelopePackageAmount: state => {
       let ep = state.board.thickness / store.getters.envelopeThickness;
@@ -57,40 +61,46 @@ boardSize : state=>{
     envelopesBetweenAmount: state => {
       return state.board.orderUntil - state.board.orderFrom + 1;
     },
-    packageAmount : (state)=>(envelopePackageAmount) =>{
-     const packageAmount = store.getters.envelopesBetweenAmount / envelopePackageAmount;
+    packageAmount: () => envelopePackageAmount => {
+      const packageAmount =
+        store.getters.envelopesBetweenAmount / envelopePackageAmount;
       const fullPackageAmount = Math.floor(packageAmount);
-      const lastPackageEnvelopesAmount =  store.getters.envelopesBetweenAmount % envelopePackageAmount
-        return {
-          fullPackageAmount,
-          lastPackageEnvelopesAmount
-        } ;
+      const lastPackageEnvelopesAmount =
+        store.getters.envelopesBetweenAmount % envelopePackageAmount;
+      return {
+        fullPackageAmount,
+        lastPackageEnvelopesAmount
+      };
     },
-    isEqualMax : () => {
+    isEqualMax: () => {
       return store.getters.maxAmount === store.getters.envelopesBetweenAmount;
     },
-    maxAmount: (state)=> {
+    maxAmount: state => {
       return (
         store.getters.calBoardFloors.fullFloors *
         state.board.boardSize *
         2 *
         Math.ceil(
           store.getters.envelopesBetweenAmount /
-            ( store.getters.calBoardFloors.fullFloors * state.board.boardSize * 2)
+            (store.getters.calBoardFloors.fullFloors *
+              state.board.boardSize *
+              2)
         )
       );
     },
-    
-    packageFullFloor : (state) => {
+
+    packageFullFloor: state => {
       return Math.ceil(
         store.getters.envelopesBetweenAmount /
           (store.getters.calBoardFloors.fullFloors * state.board.boardSize * 2)
       );
     },
-   
-    calBoardFloors:  state => {
+
+    calBoardFloors: state => {
       let fullFloors = 0;
-     let  floors = store.getters.envelopesBetweenAmount / (state.board.boardSize * store.getters.envelopePackageAmount);
+      let floors =
+        store.getters.envelopesBetweenAmount /
+        (state.board.boardSize * store.getters.envelopePackageAmount);
       if (floors - Math.floor(floors) > 0.5) {
         fullFloors = Math.ceil(floors);
       } else {
@@ -144,6 +154,9 @@ boardSize : state=>{
     },
     updateSpeedConveyor(state, speedConveyor) {
       state.machine.speedConveyor = speedConveyor;
+    },
+    toggleDisplayComp(state){
+      state.componentDisplay.distribution = !state.componentDisplay.distribution;
     }
   }
 });
