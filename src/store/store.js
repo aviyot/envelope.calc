@@ -14,12 +14,44 @@ export const store = new Vuex.Store({
     }
   ],
   getters: {
+    getTime :(state) => {
+     let startTime = new Date();
+     let endTime = new Date();
+     let startTimeArr = state.machine.start.split(":");
+     let endTimeArr = state.machine.end.split(":");
+
+     startTime.setHours(+startTimeArr[0]);
+     startTime.setMinutes(+startTimeArr[1]);
+     endTime.setHours(+endTimeArr[0]);
+     endTime.setMinutes(+endTimeArr[1]);
+    
+    let timeDur = new Date(endTime.getTime() - startTime.getTime());
+      
+       return {
+        timeDur,
+        hour:timeDur.getUTCHours(),
+        minute:timeDur.getMinutes()
+      } 
+    },
+    envelopesPerTime : (state)=> {
+     const MILISECOND = 60000;
+     const SECOND = 60;
+     let minutes = store.getters.getTime.timeDur/MILISECOND;
+     let speedConveyor = state.machine.speedConveyor;
+
+     return (minutes * speedConveyor / SECOND).toFixed(1);
+    },
     packageThickness: () => {
       return (
         store.getters.envelopeThickness *
         store.getters.packageFullFloor *
         2
       ).toFixed(1);
+    },
+
+    ratioInvoiceEnvelope : state => {
+      const {envelopesAmount,invoicesAmount} = state.order
+       return (invoicesAmount/ envelopesAmount).toFixed(2); 
     },
     envelopeThickness: state => {
       let envelopesAmount = state.order.envelopesAmount;

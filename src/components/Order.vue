@@ -1,10 +1,14 @@
  <style>
-.order  {
+.order {
   display: grid;
   grid-template-columns: 2fr 1fr 2fr 1fr;
 }
+.main-order {
+display: block;
+}
 </style>
 <template>
+<div class="main-order">
   <div class="order">
     <span>Envelopes</span>
     <input type="number" v-model="envelopesAmount">
@@ -15,11 +19,20 @@
     <span>Z-Pages</span>
     <input type="number" v-model="zruphotPages">
   </div>
+  <div>
+     <span>Ratio:I/E :</span>
+    <label> {{ratioInvoiceEnvelope}}</label>
+  </div>
+  </div>
 </template>
 <script>
+import {mapGetters} from "vuex"
 export default {
   name: "Order",
   computed: {
+...mapGetters([
+    'ratioInvoiceEnvelope'
+]),
     envelopesAmount: {
       get() {
         return this.$store.state.order.envelopesAmount;

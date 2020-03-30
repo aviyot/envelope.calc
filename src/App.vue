@@ -74,8 +74,10 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-.calc-time {
-   
+
+
+body {
+font-size:16px;
 }
 
 input {

@@ -38,7 +38,9 @@ componentDisplay : {
     orderUntil: 10000
   },
   machine: {
-    speedConveyor: 10000
+    speedConveyor: 10000,
+    start:"12:00",
+    end:"13:45"
   },
   thicknessParameter: {
     envelopeThickness: 0.08,
