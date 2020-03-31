@@ -134,7 +134,7 @@ export default {
   grid-template-columns: 1fr;
 }
  input {
-width: 30px;
+width: 40px;
  }
 
 </style>

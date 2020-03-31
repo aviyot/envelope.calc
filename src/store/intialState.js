@@ -32,7 +32,7 @@ componentDisplay : {
     }
   ],
   board: {
-    thickness: 75,
+    thickness: 80,
     boardSize: 16,
     orderFrom: 1,
     orderUntil: 10000
@@ -43,8 +43,8 @@ componentDisplay : {
     end:"13:45"
   },
   thicknessParameter: {
-    envelopeThickness: 0.08,
-    invoiceThickness: 0.09,
+    envelopeThickness: 0.088,
+    invoiceThickness: 0.08,
     zruphotThickness: 0.1,
     foldsInvoice: 2,
     foldsEnvelopeTop: 3,
