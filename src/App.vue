@@ -4,10 +4,10 @@
       <Order class="order"/>
        <div >
   
-    <div v-on:click="toggleDisplayComp()">
+    <div>
       <span>Distribution </span>
-    <button v-if="!componentDisplay.distribution"> Show </button>
-    <button v-if="componentDisplay.distribution" > Hide </button>
+    <button  v-on:click="toggleDisplayComp()" v-if="!componentDisplay.distribution" class="btn btn-primary"> Show </button>
+    <button v-on:click="toggleDisplayComp()"  v-if="componentDisplay.distribution"  class="btn btn-primary" > Hide </button>
 
   </div>
     
