@@ -1,16 +1,31 @@
 <template>
   <div class="board">
     <div>PACKAGE</div>
-    <div>
-      <label>Board</label>
-      <input type="number" v-model="boardSize" >
+    <div  class="package-type">
+      <div class="">
+        <label class="">Board</label>
+        <input class="" type="number" v-model="boardSize">
+      </div>
+      <div>
+        <label>Thick(mm)</label>
+        <input type="number" v-model="thickness">
+      </div>
     </div>
-
-    <div class="package" >
-      <div class="floors">
+  <div>
+    <div>
+    <input type="checkbox" v-model="componentDisplay.fullFloor"/>
+    <label>Full F</label>
+    </div>
+    <div>
+    <input type="checkbox"  v-model="componentDisplay.coumputedFloor"/>
+    <label>Calc F</label>
+    </div>
+</div>  
+    <div class="package">
+      <div v-if="componentDisplay.coumputedFloor" class="floors">
         <div>
-          <span>Thick(mm)</span>
-          <input type="number" v-model="thickness" >
+          <label>Thick</label>
+          <span>{{thickness}}</span>
         </div>
 
         <div>
@@ -38,9 +53,9 @@
           <span>{{packageAmount(envelopePackageAmount).lastPackageEnvelopesAmount}}</span>
         </div>
       </div>
-      <div class="full-floors">
+      <div class="full-floors"  v-if="componentDisplay.fullFloor">
         <div>
-          <span>Thick </span>
+          <span>Thick</span>
           <span>{{packageThickness}}</span>
         </div>
         <div>
@@ -77,11 +92,14 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "Board",
   computed: {
+...mapState([
+  'componentDisplay'
+]),
     ...mapGetters([
       "envelopePackageAmount",
       "boardSize",
@@ -133,8 +151,8 @@ export default {
   grid-row-gap: 10px;
   grid-template-columns: 1fr;
 }
- input {
-width: 40px;
- }
 
+input {
+  width: 40px;
+}
 </style>

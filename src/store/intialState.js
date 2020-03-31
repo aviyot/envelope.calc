@@ -1,7 +1,9 @@
 export default {
 
 componentDisplay : {
-  distribution:false
+  distribution:false,
+  fullFloor:true,
+  coumputedFloor:false
 },
   order: {
     envelopesAmount: 10000,
