@@ -3,14 +3,14 @@
     <div>PACKAGE</div>
     <div>
       <label>Board</label>
-      <input type="number" v-model="boardSize">
+      <input type="number" v-model="boardSize" >
     </div>
 
     <div class="package" >
       <div class="floors">
         <div>
           <span>Thick(mm)</span>
-          <input type="number" v-model="thickness">
+          <input type="number" v-model="thickness" >
         </div>
 
         <div>
@@ -133,4 +133,8 @@ export default {
   grid-row-gap: 10px;
   grid-template-columns: 1fr;
 }
+ input {
+width: 30px;
+ }
+
 </style>
