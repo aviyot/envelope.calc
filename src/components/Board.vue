@@ -55,7 +55,7 @@
       </div>
       <div class="full-floors"  v-if="componentDisplay.fullFloor">
         <div>
-          <span>Thick</span>
+          <label>Thick </label>
           <span>{{packageThickness}}</span>
         </div>
         <div>

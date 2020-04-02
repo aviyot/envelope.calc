@@ -6,8 +6,8 @@ componentDisplay : {
   coumputedFloor:false
 },
   order: {
-    envelopesAmount: 10000,
-    invoicesAmount: 10000,
+    envelopesAmount: 1,
+    invoicesAmount: 1,
     zruphotAmount: 0,
     zruphotPages: 1
   },
@@ -42,7 +42,7 @@ componentDisplay : {
   machine: {
     speedConveyor: 10000,
     start:"12:00",
-    end:"13:45"
+    end:"12:05"
   },
   thicknessParameter: {
     envelopeThickness: 0.088,
