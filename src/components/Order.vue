@@ -19,7 +19,7 @@
       <span>Z-Pages</span>
       <input type="number" v-model="zruphotPages">
     </div>
-    <div class="row">
+    <div class="row text-warning">
       <span class="col">
        <div class="row">
         <span class="col">Ratio I/E</span>
@@ -28,7 +28,7 @@
       </span>
       <span class="col">
         <div class="row">
-        <span class="col">Thick</span>
+        <span class="col">E Thick</span>
         <label class="col">{{envelopeThickness | fixed(2)}} </label>
         </div>
       </span>

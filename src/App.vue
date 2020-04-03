@@ -1,22 +1,28 @@
 <template>
   <div id="app">
     <div class="main">
-      <Order class="order"/>
-       <div >
-  
-    <div>
-      <span>Distribution </span>
-    <button  v-on:click="toggleDisplayComp()" v-if="!componentDisplay.distribution" class="btn btn-primary"> Show </button>
-    <button v-on:click="toggleDisplayComp()"  v-if="componentDisplay.distribution"  class="btn btn-primary" > Hide </button>
+      <Order class="order bg-primary text-light"/>
+      <div>
+        <div>
+          <span>Distribution</span>
+          <button
+            v-on:click="toggleDisplayComp()"
+            v-if="!componentDisplay.distribution"
+            class="btn btn-primary"
+          >Show</button>
+          <button
+            v-on:click="toggleDisplayComp()"
+            v-if="componentDisplay.distribution"
+            class="btn btn-primary"
+          >Hide</button>
+        </div>
 
-  </div>
-    
-      <Distribution v-if="componentDisplay.distribution" class="distribution"/>
+        <Distribution v-if="componentDisplay.distribution" class="distribution"/>
       </div>
-      <Packaging class="packaing"/>
+      <Packaging class="packaing bg-success"/>
       <div class="calc-result">
         <Board class="board"/>
-        <CalcTime class="calc-time"/>
+        <CalcTime class="calc-time bg-primary"/>
       </div>
     </div>
     <button v-on:click="restState">Reset</button>
@@ -24,14 +30,13 @@
 </template>
 
 <script>
-
 import { store } from "./store/store";
-import { mapMutations,mapState} from "vuex"
+import { mapMutations, mapState } from "vuex";
 import Packaging from "./components/Packaging";
 import Order from "./components/Order";
 import CalcTime from "./components/CalcTime";
 import Board from "./components/Board";
-import Distribution from "./components/Distribution"
+import Distribution from "./components/Distribution";
 
 export default {
   store,
@@ -43,19 +48,14 @@ export default {
     Board,
     Distribution
   },
- computed : {
-...mapState ([
-   'componentDisplay'
-])
- },
+  computed: {
+    ...mapState(["componentDisplay"])
+  },
   methods: {
-    ...mapMutations([
-      'toggleDisplayComp'
-    ]),
+    ...mapMutations(["toggleDisplayComp"]),
     restState() {
       this.$store.commit("restState");
-    },
-
+    }
   },
   beforeCreate() {
     this.$store.commit("initialiseStore");
@@ -64,7 +64,6 @@ export default {
 </script>
 
 <style >
-
 .main {
   margin: 10px 10px;
   display: grid;
@@ -75,12 +74,11 @@ export default {
   grid-template-columns: 1fr 1fr;
 }
 
-
 body {
-font-size:16px;
+  font-size: 16px;
 }
 
 input {
-max-width: 60px;
+  max-width: 60px;
 }
 </style>

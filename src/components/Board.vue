@@ -2,13 +2,17 @@
   <div class="board">
     <div>PACKAGE</div>
     <div  class="package-type">
-      <div class="">
-        <label class="">Board</label>
-        <input class="" type="number" v-model="boardSize">
+      <div class="col">
+        <div class="row">
+        <label class="col-8">Board</label>
+        <input class=" col" type="number" v-model="boardSize">
+        </div>
       </div>
-      <div>
-        <label>Thick(mm)</label>
-        <input type="number" v-model="thickness">
+      <div class="col">
+        <div class="row">
+        <label class="col-8">P Thick </label>
+        <input class="col" type="number" v-model="thickness">
+        </div>
       </div>
     </div>
   <div>
@@ -22,7 +26,7 @@
     </div>
 </div>  
     <div class="package">
-      <div v-if="componentDisplay.coumputedFloor" class="floors">
+      <div v-if="componentDisplay.coumputedFloor" class="floors bg-success">
         <div>
           <label>Thick</label>
           <span>{{thickness}}</span>
@@ -53,7 +57,7 @@
           <span>{{packageAmount(envelopePackageAmount).lastPackageEnvelopesAmount}}</span>
         </div>
       </div>
-      <div class="full-floors"  v-if="componentDisplay.fullFloor">
+      <div class="full-floors bg-info"  v-if="componentDisplay.fullFloor">
         <div>
           <label>Thick </label>
           <span>{{packageThickness}}</span>
