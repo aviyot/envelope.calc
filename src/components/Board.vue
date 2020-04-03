@@ -26,7 +26,7 @@
     </div>
 </div>  
     <div class="package">
-      <div v-if="componentDisplay.coumputedFloor" class="floors bg-success">
+      <div v-if="componentDisplay.coumputedFloor" class="floors">
         <div>
           <label>Thick</label>
           <span>{{thickness}}</span>
@@ -57,7 +57,7 @@
           <span>{{packageAmount(envelopePackageAmount).lastPackageEnvelopesAmount}}</span>
         </div>
       </div>
-      <div class="full-floors bg-info"  v-if="componentDisplay.fullFloor">
+      <div class="full-floors"  v-if="componentDisplay.fullFloor">
         <div>
           <label>Thick </label>
           <span>{{packageThickness}}</span>

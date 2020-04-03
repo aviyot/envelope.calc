@@ -8,21 +8,21 @@
           <button
             v-on:click="toggleDisplayComp()"
             v-if="!componentDisplay.distribution"
-            class="btn btn-primary"
+            class="btn"
           >Show</button>
           <button
             v-on:click="toggleDisplayComp()"
             v-if="componentDisplay.distribution"
-            class="btn btn-primary"
+            class="btn"
           >Hide</button>
         </div>
 
         <Distribution v-if="componentDisplay.distribution" class="distribution"/>
       </div>
-      <Packaging class="packaing bg-success"/>
+      <Packaging class="packaing "/>
       <div class="calc-result">
         <Board class="board"/>
-        <CalcTime class="calc-time bg-primary"/>
+        <CalcTime class="calc-time "/>
       </div>
     </div>
     <button v-on:click="restState">Reset</button>
