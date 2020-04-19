@@ -1,7 +1,6 @@
 <template>
   <v-app id="app">
   <v-container> 
-      {{componentDisplay.tab}}
       <Order class="order bg-primary text-light" />
       <Packaging class="packaing" />
       <v-tabs v-model="componentDisplay.tab" grow>
