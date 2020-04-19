@@ -3,7 +3,9 @@ export default {
 componentDisplay : {
   distribution:false,
   fullFloor:true,
-  coumputedFloor:false
+  coumputedFloor:false,
+  zrophot:false,
+  tab:1
 },
   order: {
     envelopesAmount: 1,

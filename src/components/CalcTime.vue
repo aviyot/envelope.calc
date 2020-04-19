@@ -1,7 +1,6 @@
 <template>
   <div class="calc-app">
     <div>
-      <div class="time-title">TIME</div>
       <div class="speed-time">
         <label>Speed</label>
         <input v-model="speedConveyor" type="number">

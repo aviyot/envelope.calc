@@ -1,18 +1,17 @@
 <template>
   <div class="board">
-    <div>PACKAGE</div>
     <div  class="package-type">
-      <div class="col">
-        <div class="row">
-        <label class="col-8">Board</label>
-        <input class=" col" type="number" v-model="boardSize">
-        </div>
+      <div class="">
+        <span class="">
+        <label class="">Board</label>
+        <input class="" type="number" v-model="boardSize">
+        </span>
       </div>
-      <div class="col">
-        <div class="row">
-        <label class="col-8">P Thick </label>
-        <input class="col" type="number" v-model="thickness">
-        </div>
+      <div class="">
+        <span class="">
+        <label class="">P Thick </label>
+        <input class="" type="number" v-model="thickness">
+        </span>
       </div>
     </div>
   <div>

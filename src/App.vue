@@ -1,8 +1,28 @@
 <template>
-  <div id="app">
-    <div class="main">
-      <Order class="order bg-primary text-light"/>
-      <div>
+  <v-app id="app">
+  <v-container> 
+      {{componentDisplay.tab}}
+      <Order class="order bg-primary text-light" />
+      <Packaging class="packaing" />
+      <v-tabs v-model="componentDisplay.tab" grow>
+        <v-tab>Dist</v-tab>
+        <v-tab>PACKAGE</v-tab>
+        <v-tab>time</v-tab>
+      </v-tabs>
+      <v-tabs-items v-model="componentDisplay.tab">
+        <v-tab-item>
+          <Distribution class="distribution" />
+        </v-tab-item>
+        <v-tab-item>
+          <Board class="board" />
+        </v-tab-item>
+        <v-tab-item>
+          <CalcTime class="calc-time" />
+        </v-tab-item>
+      </v-tabs-items>
+  
+
+<!--       <div>
         <div>
           <span>Distribution</span>
           <button
@@ -17,16 +37,16 @@
           >Hide</button>
         </div>
 
-        <Distribution v-if="componentDisplay.distribution" class="distribution"/>
+        <Distribution v-if="componentDisplay.distribution" class="distribution" />
       </div>
-      <Packaging class="packaing "/>
+      <Packaging class="packaing" />
       <div class="calc-result">
-        <Board class="board"/>
-        <CalcTime class="calc-time "/>
-      </div>
-    </div>
+        <Board class="board" />
+        <CalcTime class="calc-time" />
+      </div> -->
+    </v-container> 
     <button v-on:click="restState">Reset</button>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -40,6 +60,11 @@ import Distribution from "./components/Distribution";
 
 export default {
   store,
+  data() {
+    return {
+      tab: null
+    };
+  },
   name: "App",
   components: {
     Packaging,
@@ -64,11 +89,11 @@ export default {
 </script>
 
 <style >
-.main {
+/* .main {
   margin: 10px 10px;
   display: grid;
   grid-row-gap: 16px;
-}
+} */
 .calc-result {
   display: grid;
   grid-template-columns: 1fr 1fr;
