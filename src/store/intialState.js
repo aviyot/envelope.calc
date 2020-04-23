@@ -5,7 +5,8 @@ componentDisplay : {
   fullFloor:true,
   coumputedFloor:false,
   zrophot:false,
-  tab:1
+  tab:1,
+  floorTab:1
 },
   order: {
     envelopesAmount: 1,

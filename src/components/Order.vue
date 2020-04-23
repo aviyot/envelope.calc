@@ -1,50 +1,53 @@
- <style>
+ <style scoped>
+ .col {
+   padding: 3px;
+ }
+ </style>>
 
-</style>
 <template>
-  <div class="">
+  <v-container fluid>
     <v-form>
       <v-row>
-        <v-col cols="4" md="4">
+        <v-col >
           <v-text-field v-model="envelopesAmount" label="Envelopes" dense required hide-details></v-text-field>
         </v-col>
 
-        <v-col cols="4" md="4">
+        <v-col >
           <v-text-field v-model="invoicesAmount" dense label="Invoices" required hide-details></v-text-field>
         </v-col>
-        <v-col cols="4" md="4">
+        <v-col >
           <v-switch v-model="componentDisplay.zrophot" label="Zruphot" dense hide-details></v-switch>
         </v-col>
       </v-row>
       <v-row v-if="componentDisplay.zrophot">
-        <v-col cols="4" md="4">
+        <v-col cols="4" >
           <v-text-field v-model="zruphotAmount" dense label="Zruphot" required hide-details></v-text-field>
         </v-col>
 
-        <v-col cols="4" md="4">
+        <v-col cols="4">
           <v-text-field v-model="zruphotPages" dense label="Z-Pages" required hide-details></v-text-field>
         </v-col>
       </v-row>
     </v-form>
 
     <v-row>
-      <v-col cols="3">
+      <v-col >
         <span class>Ratio I/E</span>
       </v-col>
-      <v-col cols="2">
+      <v-col >
         <label class>{{ratioInvoiceEnvelope}}</label>
       </v-col>
 
       <v-spacer></v-spacer>
 
-      <v-col cols="3">
+      <v-col>
         <span class>E Thick</span>
       </v-col>
-      <v-col cols="2">
+      <v-col>
         <label class>{{envelopeThickness | fixed(2)}}</label>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 <script>
 import { mapGetters, mapState } from "vuex";

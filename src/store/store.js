@@ -41,10 +41,10 @@ export const store = new Vuex.Store({
 
      return (minutes * speedConveyor / SECOND).toFixed(1);
     },
-    packageThickness: () => {
+    packageThickness: () => (packageAmount)=> {
       return (
         store.getters.envelopeThickness *
-        store.getters.packageFullFloor *
+        packageAmount *
         2
       ).toFixed(1);
     },
@@ -82,11 +82,10 @@ export const store = new Vuex.Store({
     },
 
     envelopePackageAmount: state => {
-      let ep = state.board.thickness / store.getters.envelopeThickness;
 
-      if (ep - Math.floor(ep) > 0.5) ep = Math.ceil(ep);
-      else ep = Math.floor(ep);
+      let ep = Math.ceil(state.board.thickness / store.getters.envelopeThickness);
 
+      //בודקים תנאי שחבילה תהיה זוגי
       if (ep % 2) --ep;
       return ep;
     },
@@ -99,6 +98,7 @@ export const store = new Vuex.Store({
       const fullPackageAmount = Math.floor(packageAmount);
       const lastPackageEnvelopesAmount =
         store.getters.envelopesBetweenAmount % envelopePackageAmount;
+
       return {
         fullPackageAmount,
         lastPackageEnvelopesAmount
@@ -106,6 +106,16 @@ export const store = new Vuex.Store({
     },
     isEqualMax: () => {
       return store.getters.maxAmount === store.getters.envelopesBetweenAmount;
+    },
+    maxEnvelopesOnBoard : state => floor => {
+      return (
+        floor * state.board.boardSize *
+        2 *
+        Math.ceil(
+          store.getters.envelopesBetweenAmount /
+            (floor * state.board.boardSize * 2)
+        )
+      );
     },
     maxAmount: state => {
       return (
@@ -120,12 +130,23 @@ export const store = new Vuex.Store({
         )
       );
     },
+   
+    calcPackageFullFloor : (state) => floor =>{
+      let packageFullFloor = Math.ceil(
+        store.getters.envelopesBetweenAmount /
+          (floor * state.board.boardSize * 2))
 
+      return packageFullFloor;
+
+    },
+
+    // calcPackageFullFloor  החלפתי אותה בפונקציה אחרת
     packageFullFloor: state => {
+           
       return Math.ceil(
         store.getters.envelopesBetweenAmount /
           (store.getters.calBoardFloors.fullFloors * state.board.boardSize * 2)
-      );
+      )
     },
 
     calBoardFloors: state => {
@@ -133,13 +154,11 @@ export const store = new Vuex.Store({
       let floors =
         store.getters.envelopesBetweenAmount /
         (state.board.boardSize * store.getters.envelopePackageAmount);
-      if (floors - Math.floor(floors) > 0.5) {
-        fullFloors = Math.ceil(floors);
-      } else {
-        fullFloors = Math.floor(floors);
-      }
-
-      if (fullFloors === 0) fullFloors = 1;
+   
+        fullFloors = Math.round(floors);
+    
+    
+      if (fullFloors === 0)  fullFloors = 1;
       return {
         fullFloors,
         floors

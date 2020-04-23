@@ -5,29 +5,23 @@
 }
 
 .package > div {
- display: grid;
+  display: grid;
   grid-template-columns: 1fr 1fr;
 }
-
 </style>
 <template>
-  <div>
-    <div class="package">
-     <div>
-        <label>From</label>
-        <input type="number" v-model="orderFrom">
-      </div>
-      <div>
-        <label>Until</label>
-        <input type="number" v-model="orderUntil">
-      </div>
-      <div>
-        <label>Total</label>
-        <span> {{orderUntil - (orderFrom- 1) }}</span>
-      </div>
-     
-    </div>
-   
+  <div >
+    <v-row>
+      <v-col>
+        <v-text-field v-model="orderFrom" label="From" dense required hide-details></v-text-field>
+      </v-col>
+      <v-col>
+        <v-text-field v-model="orderUntil" label="Until" dense required hide-details></v-text-field>
+      </v-col>
+       <v-col>
+        <v-text-field readonly :value="orderUntil - (orderFrom- 1)" label="Total" dense required hide-details></v-text-field>
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script>

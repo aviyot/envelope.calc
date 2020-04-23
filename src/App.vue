@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-  <v-container> 
+    <v-container>
       <Order class="order bg-primary text-light" />
       <Packaging class="packaing" />
       <v-tabs v-model="componentDisplay.tab" grow>
@@ -19,9 +19,8 @@
           <CalcTime class="calc-time" />
         </v-tab-item>
       </v-tabs-items>
-  
 
-<!--       <div>
+      <!--       <div>
         <div>
           <span>Distribution</span>
           <button
@@ -42,9 +41,11 @@
       <div class="calc-result">
         <Board class="board" />
         <CalcTime class="calc-time" />
-      </div> -->
-    </v-container> 
-    <button v-on:click="restState">Reset</button>
+      </div>-->
+    </v-container>
+    <v-footer class="font-weight-medium">
+       <v-btn color="error">RESET</v-btn>
+    </v-footer>
   </v-app>
 </template>
 
@@ -93,16 +94,10 @@ export default {
   display: grid;
   grid-row-gap: 16px;
 } */
-.calc-result {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+
+
 
 body {
   font-size: 16px;
-}
-
-input {
-  max-width: 60px;
 }
 </style>

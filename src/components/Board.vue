@@ -1,108 +1,123 @@
 <template>
   <div class="board">
-    <div  class="package-type">
-      <div class="">
-        <span class="">
-        <label class="">Board</label>
-        <input class="" type="number" v-model="boardSize">
-        </span>
-      </div>
-      <div class="">
-        <span class="">
-        <label class="">P Thick </label>
-        <input class="" type="number" v-model="thickness">
-        </span>
-      </div>
-    </div>
-  <div>
-    <div>
-    <input type="checkbox" v-model="componentDisplay.fullFloor"/>
-    <label>Full F</label>
-    </div>
-    <div>
-    <input type="checkbox"  v-model="componentDisplay.coumputedFloor"/>
-    <label>Calc F</label>
-    </div>
-</div>  
-    <div class="package">
-      <div v-if="componentDisplay.coumputedFloor" class="floors">
-        <div>
-          <label>Thick</label>
-          <span>{{thickness}}</span>
-        </div>
+    <v-row class="package-type">
+      <v-col cols="3">
+        <v-text-field v-model="boardSize" label="Board"></v-text-field>
+      </v-col>
+      <v-col cols="3">
+        <v-text-field v-model="thickness" label="P Thick"></v-text-field>
+      </v-col>
+      <!--   <v-col cols="6">
+       <v-checkbox v-model="componentDisplay.fullFloor" label="Full F"></v-checkbox>
+       <v-checkbox v-model="componentDisplay.coumputedFloor" label="Calc F"></v-checkbox>
+      </v-col>-->
+    </v-row>
+    <v-toolbar dense>
+      <v-toolbar-title>Floors</v-toolbar-title>
+      <v-tabs v-model="componentDisplay.floorTab">
+        <v-tab>{{Math.floor(calBoardFloors.floors)}}</v-tab>
+        <v-tab>{{(calBoardFloors.floors).toFixed(2)}}</v-tab>
+        <v-tab>{{Math.ceil(calBoardFloors.floors)}}</v-tab>
+      </v-tabs>
+    </v-toolbar>
+    <v-tabs-items v-model="componentDisplay.floorTab">
+      <v-tab-item>
+        <BoardCalc :floor="Math.floor(calBoardFloors.floors)"/>
+      </v-tab-item>
+      <v-tab-item>
+        <BoardCalc :floor="(calBoardFloors.floors).toFixed(2)"/>
+      </v-tab-item>
+      <v-tab-item>
+        <BoardCalc :floor="Math.ceil(calBoardFloors.floors)"/>
+      </v-tab-item>
+   <!--    
+      <v-tab-item>
+        <div class="full-floors">
+          <div>
+            <label>Thick</label>
+            <span>{{packageThickness}}</span>
+          </div>
+          <div>
+            <span>Floors</span>
+            <label>{{ calBoardFloors.fullFloors }}</label>
+          </div>
 
-        <div>
-          <span>Floors</span>
-          <label>{{ calBoardFloors.floors | fixed(2) }}</label>
-        </div>
+          <div>
+            <label>0.5 pack</label>
+            <span>{{ packageFullFloor }}</span>
+          </div>
 
-        <div>
-          <label>0.5 pack</label>
-          <span>{{envelopePackageAmount / 2}}</span>
-        </div>
+          <div>
+            <label>1 pack</label>
+            <span>{{ packageFullFloor * 2}}</span>
+          </div>
 
-        <div>
-          <label>1 pack</label>
-          <span>{{envelopePackageAmount}}</span>
-        </div>
+          <div>
+            <label>No. Pack</label>
+            <span>{{ packageAmount(packageFullFloor*2).fullPackageAmount}}</span>
+          </div>
 
-        <div>
-          <label>No. Pack</label>
-          <span>{{packageAmount(envelopePackageAmount).fullPackageAmount}}</span>
+          <div v-if="!isEqualMax">
+            <label>Last Pack</label>
+            <span>{{packageAmount(packageFullFloor*2).lastPackageEnvelopesAmount}}</span>
+          </div>
+          <div>
+            <label>Max Board</label>
+            <span>{{ maxAmount }}</span>
+          </div>
         </div>
+      </v-tab-item>
+      <v-tab-item>
+        <div class="floors">
+          <div>
+            <label>Thick</label>
+            <span>{{thickness}}</span>
+          </div>
 
-        <div v-if="!isEqualMax">
-          <label>Last Pack</label>
-          <span>{{packageAmount(envelopePackageAmount).lastPackageEnvelopesAmount}}</span>
-        </div>
-      </div>
-      <div class="full-floors"  v-if="componentDisplay.fullFloor">
-        <div>
-          <label>Thick </label>
-          <span>{{packageThickness}}</span>
-        </div>
-        <div>
-          <span>Floors</span>
-          <label>{{ calBoardFloors.fullFloors }}</label>
-        </div>
+          <div>
+            <span>Floors</span>
+            <label>{{ calBoardFloors.floors | fixed(2) }}</label>
+          </div>
 
-        <div>
-          <label>0.5 pack</label>
-          <span>{{ packageFullFloor }}</span>
-        </div>
+          <div>
+            <label>0.5 pack</label>
+            <span>{{envelopePackageAmount / 2}}</span>
+          </div>
 
-        <div>
-          <label>1 pack</label>
-          <span>{{ packageFullFloor * 2}}</span>
-        </div>
+          <div>
+            <label>1 pack</label>
+            <span>{{envelopePackageAmount}}</span>
+          </div>
 
-        <div>
-          <label>No. Pack</label>
-          <span>{{ packageAmount(packageFullFloor*2).fullPackageAmount}}</span>
-        </div>
+          <div>
+            <label>No. Pack</label>
+            <span>{{packageAmount(envelopePackageAmount).fullPackageAmount}}</span>
+          </div>
 
-        <div v-if="!isEqualMax">
-          <label>Last Pack</label>
-          <span>{{packageAmount(packageFullFloor*2).lastPackageEnvelopesAmount}}</span>
+          <div v-if="!isEqualMax">
+            <label>Last Pack</label>
+            <span>{{packageAmount(envelopePackageAmount).lastPackageEnvelopesAmount}}</span>
+          </div>
         </div>
-        <div>
-          <label>Max Board</label>
-          <span>{{ maxAmount }}</span>
-        </div>
-      </div>
-    </div>
+      </v-tab-item>
+       -->
+    </v-tabs-items>
+
+    <div class="package"></div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
+import BoardCalc from "./BoardCalc"
 
 export default {
   name: "Board",
+  components : {
+     BoardCalc
+  },
   computed: {
-...mapState([
-  'componentDisplay'
-]),
+    ...mapState(["componentDisplay"]),
     ...mapGetters([
       "envelopePackageAmount",
       "boardSize",
@@ -115,7 +130,8 @@ export default {
       "packageFullFloor",
       "packageAmount",
       "packageFullFloor",
-      "packageThickness"
+      "packageThickness",
+      "calcPackageFullFloor"
     ]),
     thickness: {
       get() {
@@ -157,5 +173,9 @@ export default {
 
 input {
   width: 40px;
+}
+
+.v-tab {
+  padding: 6px;
 }
 </style>
