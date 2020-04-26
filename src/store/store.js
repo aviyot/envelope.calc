@@ -92,6 +92,10 @@ export const store = new Vuex.Store({
     envelopesBetweenAmount: state => {
       return state.board.orderUntil - state.board.orderFrom + 1;
     },
+    roundTo : ()=>(number,roundNum) => {
+      
+     return  Math.ceil(number/roundNum) * roundNum
+    },
     packageAmount: () => envelopePackageAmount => {
       const packageAmount =
         store.getters.envelopesBetweenAmount / envelopePackageAmount;
@@ -132,6 +136,7 @@ export const store = new Vuex.Store({
     },
    
     calcPackageFullFloor : (state) => floor =>{
+
       let packageFullFloor = Math.ceil(
         store.getters.envelopesBetweenAmount /
           (floor * state.board.boardSize * 2))

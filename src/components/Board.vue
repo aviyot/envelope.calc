@@ -15,22 +15,27 @@
     <v-toolbar dense>
       <v-toolbar-title>Floors</v-toolbar-title>
       <v-tabs v-model="componentDisplay.floorTab">
+        <!-- <v-tab>{{Math.round(calBoardFloors.floors)}}</v-tab> -->
         <v-tab>{{Math.floor(calBoardFloors.floors)}}</v-tab>
         <v-tab>{{(calBoardFloors.floors).toFixed(2)}}</v-tab>
         <v-tab>{{Math.ceil(calBoardFloors.floors)}}</v-tab>
       </v-tabs>
     </v-toolbar>
     <v-tabs-items v-model="componentDisplay.floorTab">
+     <!--   <v-tab-item>
+        <BoardCalc :floor="Math.ceil(calBoardFloors.floors)" :round ="true"/>
+      </v-tab-item> -->
       <v-tab-item>
-        <BoardCalc :floor="Math.floor(calBoardFloors.floors)"/>
+        <BoardCalc :floor="Math.floor(calBoardFloors.floors)" />
       </v-tab-item>
       <v-tab-item>
-        <BoardCalc :floor="(calBoardFloors.floors).toFixed(2)"/>
+        <BoardCalc :floor="(calBoardFloors.floors).toFixed(2)" />
       </v-tab-item>
       <v-tab-item>
-        <BoardCalc :floor="Math.ceil(calBoardFloors.floors)"/>
+        <BoardCalc :floor="Math.ceil(calBoardFloors.floors)" />
       </v-tab-item>
-   <!--    
+     
+      <!--    
       <v-tab-item>
         <div class="full-floors">
           <div>
@@ -100,7 +105,7 @@
           </div>
         </div>
       </v-tab-item>
-       -->
+      -->
     </v-tabs-items>
 
     <div class="package"></div>
@@ -109,12 +114,12 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import BoardCalc from "./BoardCalc"
+import BoardCalc from "./BoardCalc";
 
 export default {
   name: "Board",
-  components : {
-     BoardCalc
+  components: {
+    BoardCalc
   },
   computed: {
     ...mapState(["componentDisplay"]),
@@ -177,5 +182,6 @@ input {
 
 .v-tab {
   padding: 6px;
+  min-width: 60px;
 }
 </style>
