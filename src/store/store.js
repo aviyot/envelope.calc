@@ -132,6 +132,7 @@ export const store = new Vuex.Store({
     },
    
     calcPackageFullFloor : (state) => floor =>{
+
       let packageFullFloor = Math.ceil(
         store.getters.envelopesBetweenAmount /
           (floor * state.board.boardSize * 2))
