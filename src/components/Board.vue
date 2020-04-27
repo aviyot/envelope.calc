@@ -2,25 +2,22 @@
   <div class="board">
     <v-row class="package-type">
       <v-col cols="3">
-        <v-text-field v-model="boardSize" label="Board"></v-text-field>
+        <v-text-field type="number" v-model="boardSize" label="Board"></v-text-field>
       </v-col>
       <v-col cols="3">
-        <v-text-field v-model="thickness" label="P Thick"></v-text-field>
+        <v-text-field type="number" v-model="thickness" label="P Thick"></v-text-field>
       </v-col>
       <!--   <v-col cols="6">
        <v-checkbox v-model="componentDisplay.fullFloor" label="Full F"></v-checkbox>
        <v-checkbox v-model="componentDisplay.coumputedFloor" label="Calc F"></v-checkbox>
       </v-col>-->
     </v-row>
-    <v-toolbar dense>
-      <v-toolbar-title>Floors</v-toolbar-title>
       <v-tabs v-model="componentDisplay.floorTab">
         <!-- <v-tab>{{Math.round(calBoardFloors.floors)}}</v-tab> -->
         <v-tab>{{Math.floor(calBoardFloors.floors)}}</v-tab>
         <v-tab>{{(calBoardFloors.floors).toFixed(2)}}</v-tab>
         <v-tab>{{Math.ceil(calBoardFloors.floors)}}</v-tab>
       </v-tabs>
-    </v-toolbar>
     <v-tabs-items v-model="componentDisplay.floorTab">
      <!--   <v-tab-item>
         <BoardCalc :floor="Math.ceil(calBoardFloors.floors)" :round ="true"/>
@@ -181,7 +178,7 @@ input {
 }
 
 .v-tab {
+  min-width: 25%;
   padding: 6px;
-  min-width: 60px;
 }
 </style>

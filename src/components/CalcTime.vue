@@ -1,43 +1,86 @@
 <template>
-  <div class="calc-app">
-    <div>
-      <div class="speed-time">
+<v-container>
+    <v-row>
+      <v-col>
         <label>Speed</label>
-        <input v-model="speedConveyor" type="number">
+      </v-col>
+      <v-col>
+        <v-text-field type="number" v-model="speedConveyor" dense hide-details></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
         <label>Duration</label>
+      </v-col>
+      <v-col>
         <span>{{durationTime}}</span>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
         <label>End</label>
+      </v-col>
+      <v-col>
         <span>{{endTime}}</span>
-        <label>Start </label>
-        <input type="text" v-model="workTime.start" placeholder="hh:mm">
-        <label>End </label>
-        <input type="text" v-model="workTime.end" placeholder="hh:mm">
-       <label>Total</label>
-       <span>{{getTime.hour}}:{{getTime.minute}}</span>
-       <label>Amount </label>
-       <span>{{envelopesPerTime}}</span>
-      </div>
-    </div>
-  </div>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+          <v-divider ></v-divider> 
+
+      </v-col>
+    </v-row>
+   <v-row>
+      <v-col>
+        <label>Start</label>
+      </v-col>
+      <v-col>
+        <v-text-field type="text" v-model="workTime.start" dense hide-details></v-text-field>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <label>End</label>
+      </v-col>
+      <v-col>
+        <v-text-field type="text" v-model="workTime.end" dense hide-details></v-text-field>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <label>Total</label>
+      </v-col>
+      <v-col>
+        <span>{{getTime.hour}}:{{getTime.minute}}</span>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <label>Amount</label>
+      </v-col>
+      <v-col>
+        <span>{{envelopesPerTime}}</span>
+      </v-col>
+    </v-row>
+</v-container>
 </template>
 
 <script>
 import moment from "moment";
 import "moment-duration-format";
-import { mapState, mapGetters} from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "CalcTime",
-  methods:{
-
-  },
+  methods: {},
   computed: {
- ...mapGetters([
-  'getTime',
-  'envelopesPerTime'
- ]),
-...mapState({
-   workTime:'machine'
-}),
+    ...mapGetters(["getTime", "envelopesPerTime"]),
+    ...mapState({
+      workTime: "machine"
+    }),
     speedConveyor: {
       get() {
         return this.$store.state.machine.speedConveyor;
@@ -73,24 +116,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.data {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-}
-.time input {
-  max-width: 20px;
-}
 
-.time {
-  background-color: blue;
-  color: white;
-}
-
-.speed-time {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-input {
-  max-width: 60px;
+.col {
+  padding: 4px;
 }
 </style>
