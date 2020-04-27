@@ -44,7 +44,7 @@
       </div>-->
     </v-container>
     <v-footer class="font-weight-medium">
-       <v-btn color="error">RESET</v-btn>
+       <v-btn v-on:click="restState" color="error"  >RESET</v-btn>
     </v-footer>
   </v-app>
 </template>

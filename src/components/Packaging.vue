@@ -19,7 +19,7 @@
              Invoices Range
           </v-col>
       <v-col>
-       {{orderFrom * ratioInvoiceEnvelope }} - {{orderUntil * ratioInvoiceEnvelope}}
+       {{(orderFrom * ratioInvoiceEnvelope).toFixed() }} - {{(orderUntil * ratioInvoiceEnvelope).toFixed()}}
         </v-col>
        
         </v-row>
