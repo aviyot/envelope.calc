@@ -1,5 +1,6 @@
 <template >
-  <div >
+  <div>
+   
     <v-row>
       <v-col><label>Thick</label></v-col>
       <v-col><span>{{packageThickness(calcPackageFullFloor(floor))}}</span></v-col>
@@ -8,8 +9,7 @@
 
     <v-row>
       <v-col><label>Pack - Half / Full </label></v-col>
-      <v-col><span>{{calcPackageFullFloor(floor)}} /</span> 
-      <span>{{calcPackageFullFloor(floor)*2}}</span> </v-col>
+      <v-col><span>{{calcPackageFullFloor(floor)}} /</span> <span>{{calcPackageFullFloor(floor)*2}}</span> </v-col>
     </v-row>
 
    <!--  <v-row>
@@ -57,9 +57,7 @@ export default {
       'packageThickness',
       'packageAmount',
       'maxEnvelopesOnBoard',
-      'boardSize',
-      'calBoardFloors',
-      'roundTo'
+      'boardSize'
     ])
   }
 };
