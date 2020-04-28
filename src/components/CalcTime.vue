@@ -36,7 +36,7 @@
         <label>Start</label>
       </v-col>
       <v-col>
-        <v-text-field type="text" v-model="workTime.start" dense hide-details></v-text-field>
+        <v-text-field type="time" v-model="workTime.start" dense hide-details></v-text-field>
       </v-col>
     </v-row>
 
@@ -45,7 +45,7 @@
         <label>End</label>
       </v-col>
       <v-col>
-        <v-text-field type="text" v-model="workTime.end" dense hide-details></v-text-field>
+        <v-text-field type="time" v-model="workTime.end" dense hide-details></v-text-field>
       </v-col>
     </v-row>
 

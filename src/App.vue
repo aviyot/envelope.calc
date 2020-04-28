@@ -42,10 +42,11 @@
         <Board class="board" />
         <CalcTime class="calc-time" />
       </div>-->
-    </v-container>
-    <v-footer class="font-weight-medium">
+       <v-footer class="font-weight-medium">
        <v-btn v-on:click="restState" color="error"  >RESET</v-btn>
     </v-footer>
+    </v-container>
+   
   </v-app>
 </template>
 
