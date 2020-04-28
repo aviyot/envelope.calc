@@ -49,7 +49,7 @@
         <label>Board -1 floor / max</label>
       </v-col>
       <v-col>
-        <span>{{ boardSize * envelopePackageAmount }}</span> /
+        <span>{{ boardSize * calcPackageFullFloor(floor)*2 }}</span> /
         <span>{{maxEnvelopesOnBoard(Math.ceil(floor))}}</span>
       </v-col>
     </v-row>
