@@ -83,17 +83,13 @@ export const store = new Vuex.Store({
 
     envelopePackageAmount: state => {
 
-      let ep = Math.ceil(state.board.thickness / store.getters.envelopeThickness);
+      return Math.round((state.board.thickness / store.getters.envelopeThickness)/2)*2;
 
-      //בודקים תנאי שחבילה תהיה זוגי
-      if (ep % 2) --ep;
-      return ep;
     },
     envelopesBetweenAmount: state => {
       return state.board.orderUntil - state.board.orderFrom + 1;
     },
     roundTo : ()=>(number,roundNum) => {
-      
      return  Math.ceil(number/roundNum) * roundNum
     },
     packageAmount: () => envelopePackageAmount => {

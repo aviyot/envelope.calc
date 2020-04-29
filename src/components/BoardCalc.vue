@@ -2,10 +2,12 @@
   <v-container>
     <v-row>
       <v-col>
-        <label>Thick</label>
+        <label>Thick E / B</label>
       </v-col>
       <v-col>
-        <span>{{packageThickness(calcPackageFullFloor(floor))}}</span>
+        <span>{{packageThickness(calcPackageFullFloor(floor))}} mm</span>
+        <span> / </span>
+        <span>{{(packageThickness(calcPackageFullFloor(floor)) * (Math.ceil(floor) / 10)).toFixed(1) }} cm</span>
       </v-col>
     </v-row>
 
