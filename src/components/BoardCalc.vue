@@ -16,8 +16,8 @@
         <label>Pack - Half / Full</label>
       </v-col>
       <v-col>
-        <span>{{calcPackageFullFloor(floor)}} /</span>
-        <span>{{calcPackageFullFloor(floor)*2}}</span>
+        <span>{{calcPackageFullFloor(floor)}}E /</span>
+        <span>{{calcPackageFullFloor(floor)*2}}E</span>
       </v-col>
     </v-row>
 
@@ -28,11 +28,11 @@
     -->
     <v-row>
       <v-col>
-        <label>No.Pack</label>
+        <label>Packs On Floor </label>
       </v-col>
       <v-col>
-        <span>{{packageAmount(calcPackageFullFloor(floor)*2).fullPackageAmount}}</span> /
-        <span>{{ Math.ceil(floor) * boardSize}}</span>
+        <span>{{packageAmount(calcPackageFullFloor(floor)*2).fullPackageAmount}}P</span> /
+        <span>{{ Math.ceil(floor) * boardSize}}P</span>
       </v-col>
     </v-row>
 
@@ -42,8 +42,8 @@
         <label>Last Floor</label>
       </v-col>
       <v-col>
-        <span>{{packageAmount(calcPackageFullFloor(floor)*2).fullPackageAmount % boardSize}} /</span>
-        <span>{{packageAmount(calcPackageFullFloor(floor)*2).lastPackageEnvelopesAmount}}</span>
+        <span>{{packageAmount(calcPackageFullFloor(floor)*2).fullPackageAmount % boardSize}}P /</span>
+        <span>{{packageAmount(calcPackageFullFloor(floor)*2).lastPackageEnvelopesAmount}}E</span>
       </v-col>
     </v-row>
     <v-row>
@@ -51,8 +51,8 @@
         <label>Board -1 floor / max</label>
       </v-col>
       <v-col>
-        <span>{{ boardSize * calcPackageFullFloor(floor)*2 }}</span> /
-        <span>{{maxEnvelopesOnBoard(Math.ceil(floor))}}</span>
+        <span>{{ boardSize * calcPackageFullFloor(floor)*2 }}E</span> /
+        <span>{{maxEnvelopesOnBoard(Math.ceil(floor))}}E</span>
       </v-col>
     </v-row>
     </v-container>
