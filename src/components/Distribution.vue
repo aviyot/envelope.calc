@@ -13,12 +13,10 @@
         <tr v-for="dis in dist" :key="dis.name">
           <th v-on:click="updateRange(dis.orderFrom,dis.orderUntil)">{{dis.name}}</th>
           <td>
-            
-            <v-text-field type="number" v-model="dis.orderFrom"  dense hide-details></v-text-field>
+            <v-text-field type="number" v-model = "dis.orderFrom"  dense hide-details></v-text-field>
           </td>
           <td>
-          <v-text-field type="number" v-model="dis.orderUntil" dense hide-details></v-text-field>
-
+          <v-text-field type="number" v-model = "dis.orderUntil" dense hide-details></v-text-field>
           </td>
           <td>{{dis.orderUntil - dis.orderFrom +1}}</td>
         </tr>

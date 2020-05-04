@@ -22,7 +22,7 @@
         <label>End</label>
       </v-col>
       <v-col>
-        <span>{{endTime}}</span>
+        <span>{{endWorkTime}}</span>
       </v-col>
     </v-row>
     <v-row>
@@ -36,7 +36,7 @@
         <label>Start</label>
       </v-col>
       <v-col>
-        <v-text-field type="time" v-model="workTime.start" dense hide-details></v-text-field>
+        <v-text-field type="time" v-model="startTime" dense hide-details></v-text-field>
       </v-col>
     </v-row>
 
@@ -45,7 +45,7 @@
         <label>End</label>
       </v-col>
       <v-col>
-        <v-text-field type="time" v-model="workTime.end" dense hide-details></v-text-field>
+        <v-text-field type="time" v-model="endTime" dense hide-details></v-text-field>
       </v-col>
     </v-row>
 
@@ -89,6 +89,22 @@ export default {
         this.$store.commit("updateSpeedConveyor", value);
       }
     },
+    startTime : {
+      get(){
+        return this.$store.state.machine.start;  
+      },
+      set(value){
+        this.$store.commit("upateStartTime",value)
+      }
+    },
+    endTime : {
+      get(){
+       return this.$store.state.machine.end;
+      },
+      set(value){
+        this.$store.commit("updateEndTime",value)
+      }
+    },
     durationMinute: function() {
       const MINUTE = 60;
       return (
@@ -101,7 +117,7 @@ export default {
         .duration(Math.round(this.durationMinute), "minutes")
         .format("hh:mm:ss");
     },
-    endTime: function() {
+    endWorkTime: function() {
       return moment()
         .add(this.durationMinute, "minutes")
         .format("HH:mm:ss");

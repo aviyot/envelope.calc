@@ -6,7 +6,8 @@ componentDisplay : {
   coumputedFloor:false,
   zrophot:false,
   tab:1,
-  floorTab:1
+  floorTab:1,
+  drawer:false
 },
   order: {
     envelopesAmount: 1,

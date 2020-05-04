@@ -206,7 +206,15 @@ export const store = new Vuex.Store({
     },
     updateSpeedConveyor(state, speedConveyor) {
       state.machine.speedConveyor = speedConveyor;
+    }
+    ,
+    upateStartTime(state, startTime){
+      state.machine.start = startTime;
     },
+    updateEndTime(state,endTime){
+      state.machine.end = endTime
+    }
+    ,
     toggleDisplayComp(state){
       state.componentDisplay.distribution = !state.componentDisplay.distribution;
     }
