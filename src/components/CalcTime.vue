@@ -2,12 +2,19 @@
 <v-container>
     <v-row>
       <v-col>
-        <label>Speed</label>
+        <v-text-field type="number" label="Speed" v-model="speedConveyor" dense hide-details></v-text-field>
       </v-col>
       <v-col>
-        <v-text-field type="number" v-model="speedConveyor" dense hide-details></v-text-field>
+        <v-text-field type="number" label="From" v-model="fromEnvelope" dense hide-details></v-text-field>
+      </v-col>
+      <v-col>
+         <v-text-field type="number" label="Until" v-model="untilEnvelope" dense hide-details></v-text-field>
+      </v-col>
+      <v-col>
+          <v-text-field type="number" label="Total" v-model="totalEnvelope" dense hide-details></v-text-field>
       </v-col>
     </v-row>
+
     <v-row>
       <v-col>
         <label>Duration</label>
@@ -77,7 +84,7 @@ export default {
   name: "CalcTime",
   methods: {},
   computed: {
-    ...mapGetters(["getTime", "envelopesPerTime"]),
+    ...mapGetters(["getTime", "envelopesPerTime","totalEnvelope"]),
     ...mapState({
       workTime: "machine"
     }),
@@ -97,6 +104,30 @@ export default {
         this.$store.commit("upateStartTime",value)
       }
     },
+    fromEnvelope : {
+        get(){
+          return this.$store.state.machine.fromEnvelope;
+        },
+        set(value){
+           this.$store.commit("updateFromEnvelope",value);
+        }
+    },
+    untilEnvelope : {
+  get(){
+    return this.$store.state.machine.untilEnvelope;
+        },
+        set(value){
+          this.$store.commit("updateUntilEnvelope",value)
+        }
+    },
+ /*    totalEnvelope : {
+  get(){
+return 0
+        },
+        set(value){
+          
+        }
+    }, */
     endTime : {
       get(){
        return this.$store.state.machine.end;
@@ -108,7 +139,7 @@ export default {
     durationMinute: function() {
       const MINUTE = 60;
       return (
-        this.$store.getters.envelopesBetweenAmount /
+        this.$store.getters.totalEnvelope /
         (this.speedConveyor / MINUTE)
       );
     },

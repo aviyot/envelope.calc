@@ -164,6 +164,9 @@ export const store = new Vuex.Store({
         fullFloors,
         floors
       };
+    },
+    totalEnvelope : state => {
+      return state.machine.untilEnvelope - state.machine.fromEnvelope + 1;
     }
   },
   mutations: {
@@ -213,8 +216,17 @@ export const store = new Vuex.Store({
     },
     updateEndTime(state,endTime){
       state.machine.end = endTime
-    }
-    ,
+    },
+
+  updateFromEnvelope(state,fromEnvelope){
+         state.machine.fromEnvelope = fromEnvelope;
+  },
+  updateUntilEnvelope(state,untilEnvelope){
+    state.machine.untilEnvelope = untilEnvelope;
+},
+/* updateTotalEnvelope(state,totalEnvelope){
+  state.machine.totalEnvelope = totalEnvelope;
+}, */
     toggleDisplayComp(state){
       state.componentDisplay.distribution = !state.componentDisplay.distribution;
     }

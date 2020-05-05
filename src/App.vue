@@ -37,7 +37,6 @@
     </v-navigation-drawer>
     <v-container>
       <Order class="order bg-primary text-light" />
-      <Packaging class="packaing" />
       <v-tabs v-model="componentDisplay.tab" grow>
         <v-tab>Dist</v-tab>
         <v-tab>PACKAGE</v-tab>
@@ -77,7 +76,7 @@
         <Board class="board" />
         <CalcTime class="calc-time" />
       </div>-->
-       <v-footer class="font-weight-medium">
+       <v-footer class="font-weight-medium" app>
        <v-btn v-on:click="restState" color="error"  >RESET</v-btn>
     </v-footer>
     </v-container>
@@ -88,7 +87,6 @@
 <script>
 import { store } from "./store/store";
 import { mapMutations, mapState } from "vuex";
-import Packaging from "./components/Packaging";
 import Order from "./components/Order";
 import CalcTime from "./components/CalcTime";
 import Board from "./components/Board";
@@ -103,7 +101,6 @@ export default {
   },
   name: "App",
   components: {
-    Packaging,
     Order,
     CalcTime,
     Board,
@@ -125,15 +122,5 @@ export default {
 </script>
 
 <style >
-/* .main {
-  margin: 10px 10px;
-  display: grid;
-  grid-row-gap: 16px;
-} */
 
-
-
-body {
-  font-size: 16px;
-}
 </style>

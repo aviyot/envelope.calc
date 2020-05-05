@@ -2,7 +2,7 @@
 
 </style>
 <template>
-  <div >
+
     <v-row>
       <v-col>
         <v-text-field v-model="orderFrom" type="number" label="From" dense required hide-details></v-text-field>
@@ -14,7 +14,7 @@
         <v-text-field readonly :value="orderUntil - (orderFrom- 1)" type="number" label="Total" dense required hide-details></v-text-field>
       </v-col>
     </v-row>
-    <v-row>
+   <!--  <v-row>
          <v-col>
              Invoices Range
           </v-col>
@@ -22,8 +22,7 @@
        {{(orderFrom * ratioInvoiceEnvelope).toFixed() }} - {{(orderUntil * ratioInvoiceEnvelope).toFixed()}}
         </v-col>
        
-        </v-row>
-  </div>
+        </v-row> -->
 </template>
 <script>
 import {mapGetters } from 'vuex';
