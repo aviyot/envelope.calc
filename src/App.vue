@@ -1,23 +1,12 @@
 <template>
   <v-app id="app">
-    <v-app-bar 
-    dense
-    >
+    <v-app-bar dense>
       <v-app-bar-nav-icon v-on:click="componentDisplay.drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>Envelope Calc</v-toolbar-title>
     </v-app-bar>
-        <v-navigation-drawer
-      v-model="componentDisplay.drawer"
-      absolute
-      temporary
-    >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          active-class="deep-purple--text text--accent-4"
-        >
+    <v-navigation-drawer v-model="componentDisplay.drawer" absolute temporary>
+      <v-list nav dense>
+        <v-list-item-group active-class="deep-purple--text text--accent-4">
           <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
@@ -31,11 +20,10 @@
             </v-list-item-icon>
             <v-list-item-title>Account</v-list-item-title>
           </v-list-item>
-
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-container>
+    <v-content >
       <Order class="order bg-primary text-light" />
       <v-tabs v-model="componentDisplay.tab" grow>
         <v-tab>Dist</v-tab>
@@ -76,11 +64,11 @@
         <Board class="board" />
         <CalcTime class="calc-time" />
       </div>-->
-       <v-footer class="font-weight-medium" app>
-       <v-btn v-on:click="restState" color="error"  >RESET</v-btn>
+    </v-content>
+
+    <v-footer class="font-weight-medium" app>
+      <v-btn v-on:click="restState" color="error">RESET</v-btn>
     </v-footer>
-    </v-container>
-   
   </v-app>
 </template>
 
@@ -122,5 +110,4 @@ export default {
 </script>
 
 <style >
-
 </style>

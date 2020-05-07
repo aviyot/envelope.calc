@@ -1,30 +1,29 @@
 <template>
-  <div class="board">
-  
-        <Packaging />
-        <v-row>
-      <v-col  cols="4">
+  <v-container>
+    <Packaging />
+    <v-row>
+      <v-col cols="4">
         <v-text-field type="number" v-model="boardSize" label="Board" dense hide-details></v-text-field>
       </v-col>
       <v-col cols="4">
         <v-text-field type="number" v-model="thickness" label="P Thick" dense hide-details></v-text-field>
       </v-col>
-      </v-row>
-    
-      <!--   <v-col cols="6">
+    </v-row>
+
+    <!--   <v-col cols="6">
        <v-checkbox v-model="componentDisplay.fullFloor" label="Full F"></v-checkbox>
        <v-checkbox v-model="componentDisplay.coumputedFloor" label="Calc F"></v-checkbox>
-      </v-col>-->
-      <v-tabs v-model="componentDisplay.floorTab">
-        <!-- <v-tab>{{Math.round(calBoardFloors.floors)}}</v-tab> -->
-        <v-tab>{{Math.floor(calBoardFloors.floors)}}</v-tab>
-        <v-tab>{{(calBoardFloors.floors).toFixed(2)}}</v-tab>
-        <v-tab>{{Math.ceil(calBoardFloors.floors)}}</v-tab>
-      </v-tabs>
+    </v-col>-->
+    <v-tabs v-model="componentDisplay.floorTab">
+      <!-- <v-tab>{{Math.round(calBoardFloors.floors)}}</v-tab> -->
+      <v-tab>{{Math.floor(calBoardFloors.floors)}}</v-tab>
+      <v-tab>{{(calBoardFloors.floors).toFixed(2)}}</v-tab>
+      <v-tab>{{Math.ceil(calBoardFloors.floors)}}</v-tab>
+    </v-tabs>
     <v-tabs-items v-model="componentDisplay.floorTab">
-     <!--   <v-tab-item>
+      <!--   <v-tab-item>
         <BoardCalc :floor="Math.ceil(calBoardFloors.floors)" :round ="true"/>
-      </v-tab-item> -->
+      </v-tab-item>-->
       <v-tab-item>
         <BoardCalc :floor="Math.floor(calBoardFloors.floors)" />
       </v-tab-item>
@@ -34,7 +33,7 @@
       <v-tab-item>
         <BoardCalc :floor="Math.ceil(calBoardFloors.floors)" />
       </v-tab-item>
-     
+
       <!--    
       <v-tab-item>
         <div class="full-floors">
@@ -107,16 +106,13 @@
       </v-tab-item>
       -->
     </v-tabs-items>
-
-    <div class="package"></div>
-  </div>
+  </v-container>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
 import BoardCalc from "./BoardCalc";
-import Packaging  from "./Packaging";
-
+import Packaging from "./Packaging";
 
 export default {
   name: "Board",
@@ -167,7 +163,6 @@ export default {
 };
 </script>
 <style scoped>
-
 .v-tab {
   min-width: 25%;
   padding: 6px;

@@ -2,7 +2,6 @@
 
 </style>
 <template>
-
     <v-row>
       <v-col>
         <v-text-field v-model="orderFrom" type="number" label="From" dense required hide-details></v-text-field>
