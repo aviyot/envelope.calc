@@ -25,7 +25,7 @@
     </v-navigation-drawer>
     <v-content >
       <Order class="order bg-primary text-light" />
-      <v-tabs v-model="componentDisplay.tab" grow>
+      <v-tabs v-model="componentDisplay.tab" grow >
         <v-tab>Dist</v-tab>
         <v-tab>PACKAGE</v-tab>
         <v-tab>time</v-tab>

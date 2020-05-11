@@ -5,6 +5,7 @@ import intialState from "./intialState";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+  //strict: process.env.NODE_ENV !== 'production',
   state: { ...intialState },
   plugins: [
     store => {
@@ -55,7 +56,7 @@ export const store = new Vuex.Store({
     },
     envelopeThickness: state => {
       let envelopesAmount = state.order.envelopesAmount;
-      let ratioInvoice = state.order.invoicesAmount / envelopesAmount;
+      let rationInvoice = state.order.invoicesAmount / envelopesAmount;
       let rationZruphot = state.order.zruphotAmount / envelopesAmount;
       const {
         envelopeThickness,
@@ -66,20 +67,36 @@ export const store = new Vuex.Store({
         foldsInvoice,
         glueThickness
       } = state.thicknessParameter;
-      const { zruphotPages } = state.order;
 
+      
+      const { zruphotPages } = state.order;
+      let sideGlue = Number(glueThickness);
+      let inEnvelopeThikness =  invoiceThickness * foldsInvoice * rationInvoice +
+      zruphotThickness * zruphotPages * rationZruphot;
+      if(inEnvelopeThikness > glueThickness)
+          sideGlue = 0;
+      else
+         inEnvelopeThikness = 0;
+
+         0.5 * (envelopeThickness * foldsEnvelopeTop + sideGlue + inEnvelopeThikness + glueThickness +
+          envelopeThickness * foldsEnvelopeButtom + sideGlue + inEnvelopeThikness )
       return (
+          0.5 * (envelopeThickness * foldsEnvelopeTop + sideGlue + inEnvelopeThikness + glueThickness +
+               envelopeThickness * foldsEnvelopeButtom + sideGlue + inEnvelopeThikness )
+      );
+ 
+      /* return (
         0.5 *
           envelopeThickness *
           (foldsEnvelopeTop + foldsEnvelopeButtom + glueThickness) +
-        invoiceThickness * foldsInvoice * ratioInvoice +
-        zruphotThickness * zruphotPages * rationZruphot +
+          invoiceThickness * foldsInvoice * rationInvoice +
+          zruphotThickness * zruphotPages * rationZruphot +
         0.5 * glueThickness
-      );
+      ); */
     },
     boardSize: state => {
       return state.board.boardSize;
-    },
+    }, 
 
     envelopePackageAmount: state => {
 
@@ -171,6 +188,12 @@ export const store = new Vuex.Store({
   },
   mutations: {
     restState(state) {
+      localStorage.setItem("store", JSON.stringify({...intialState }));
+      this.replaceState(
+        Object.assign(state, JSON.parse(localStorage.getItem("store")))
+      );
+    },
+    restThicknessState(state) {
       localStorage.setItem("store", JSON.stringify({ ...intialState }));
       this.replaceState(
         Object.assign(state, JSON.parse(localStorage.getItem("store")))
@@ -218,6 +241,28 @@ export const store = new Vuex.Store({
       state.machine.end = endTime
     },
 
+    updtaEnvelopeThickness(state, envelopeThickness){
+      state.thicknessParameter.envelopeThickness = envelopeThickness;
+    },
+    updateInvoiceThickness(state, invoiceThickness){
+      state.thicknessParameter.invoiceThickness = invoiceThickness;
+    },
+    updateZruphotThickness(state,zruphotThickness) {
+      state.thicknessParameter.zruphotThickness = zruphotThickness;
+    },
+    updateGlueThickness(state,glueThickness){
+      state.thicknessParameter.glueThickness = glueThickness;
+    },
+    /*
+      envelopeThickness: 0.088,
+    invoiceThickness: 0.07,
+    zruphotThickness: 0.1,
+    foldsInvoice: 2,
+    foldsEnvelopeTop: 3,
+    foldsEnvelopeButtom: 2,
+    zruphotPages: 0,
+    glueThickness: 0.16 
+     */
   updateFromEnvelope(state,fromEnvelope){
          state.machine.fromEnvelope = fromEnvelope;
   },

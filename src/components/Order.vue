@@ -44,15 +44,20 @@
         <span class>E Thick</span>
       </v-col>
       <v-col>
-        <label class>{{envelopeThickness | fixed(2)}}</label>
+        <label class>{{envelopeThickness | fixed(2)}} </label>
+        <ThicknessSettings/>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
+import ThicknessSettings from "./ThicknessSettings"
 import { mapGetters, mapState } from "vuex";
 export default {
   name: "Order",
+  components :{
+    ThicknessSettings,
+  },
   filters: {
     fixed: function(value, size) {
       value = +value;

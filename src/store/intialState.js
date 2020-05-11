@@ -7,7 +7,8 @@ componentDisplay : {
   zrophot:false,
   tab:1,
   floorTab:1,
-  drawer:false
+  drawer:false,
+  dialog:false
 },
   order: {
     envelopesAmount: 1,
@@ -59,6 +60,6 @@ componentDisplay : {
     foldsEnvelopeTop: 3,
     foldsEnvelopeButtom: 2,
     zruphotPages: 0,
-    glueThickness: 0.16
-  }
+    glueThickness: 0.16,
+    }
 };
