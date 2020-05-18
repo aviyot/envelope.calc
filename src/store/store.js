@@ -109,6 +109,8 @@ export const store = new Vuex.Store({
     roundTo : ()=>(number,roundNum) => {
      return  Math.ceil(number/roundNum) * roundNum
     },
+
+    //פונקציה לחישוב כמות החבילות שיהיה לי במשטח 
     packageAmount: () => envelopePackageAmount => {
       const packageAmount =
         store.getters.envelopesBetweenAmount / envelopePackageAmount;
@@ -147,7 +149,7 @@ export const store = new Vuex.Store({
         )
       );
     },
-   
+    
     calcPackageFullFloor : (state) => floor =>{
 
       let packageFullFloor = Math.ceil(
@@ -193,6 +195,9 @@ export const store = new Vuex.Store({
         Object.assign(state, JSON.parse(localStorage.getItem("store")))
       );
     },
+   /*  restDataState(state) {
+
+    }, */
     restThicknessState(state) {
       localStorage.setItem("store", JSON.stringify({ ...intialState }));
       this.replaceState(
