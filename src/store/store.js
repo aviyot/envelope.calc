@@ -106,8 +106,13 @@ export const store = new Vuex.Store({
     envelopesBetweenAmount: state => {
       return state.board.orderUntil - state.board.orderFrom + 1;
     },
-    roundTo : ()=>(number,roundNum) => {
-     return  Math.ceil(number/roundNum) * roundNum
+    roundTo : ()=>(number,roundNum , type) => {
+      if(type=="ceil")
+         return  Math.ceil(number/roundNum) * roundNum
+     if(type=="floor")
+        return  Math.floor(number/roundNum) * roundNum
+     if(type=="round")
+        return  Math.round(number/roundNum) * roundNum
     },
 
     //פונקציה לחישוב כמות החבילות שיהיה לי במשטח 
@@ -187,6 +192,13 @@ export const store = new Vuex.Store({
     totalEnvelope : state => {
        return state.machine.untilEnvelope - state.machine.fromEnvelope + 1;
      
+    },
+    calcPackageHeight : state => {
+      return (store.getters.envelopeThickness*store.getters.totalEnvelope/10)/state.board.boardSize
+    },
+    calcEnvelopesOnBoard : state => {
+      const HIGHT_BOARD = 294;
+      return (HIGHT_BOARD * state.board.boardSize) /store.getters.envelopeThickness
     }
   },
   mutations: {

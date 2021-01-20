@@ -10,101 +10,22 @@
       </v-col>
     </v-row>
 
-    <!--   <v-col cols="6">
-       <v-checkbox v-model="componentDisplay.fullFloor" label="Full F"></v-checkbox>
-       <v-checkbox v-model="componentDisplay.coumputedFloor" label="Calc F"></v-checkbox>
-    </v-col>-->
+
     <v-tabs v-model="componentDisplay.floorTab">
-      <!-- <v-tab>{{Math.round(calBoardFloors.floors)}}</v-tab> -->
       <v-tab>{{Math.floor(calBoardFloors.floors)}}</v-tab>
       <v-tab>{{(calBoardFloors.floors).toFixed(2)}}</v-tab>
       <v-tab>{{Math.ceil(calBoardFloors.floors)}}</v-tab>
     </v-tabs>
     <v-tabs-items v-model="componentDisplay.floorTab">
-      <!--   <v-tab-item>
-        <BoardCalc :floor="Math.ceil(calBoardFloors.floors)" :round ="true"/>
-      </v-tab-item>-->
       <v-tab-item>
-        <BoardCalc :floor="Math.floor(calBoardFloors.floors)" />
+        <BoardCalc :boardProp="boardByFloors(Math.floor(calBoardFloors.floors),'ceil')"/>
       </v-tab-item>
       <v-tab-item>
-        <BoardCalc :floor="(calBoardFloors.floors).toFixed(2)" />
+        <BoardCalc :boardProp="boardByFloors((calBoardFloors.floors).toFixed(2),'round')"/>
       </v-tab-item>
       <v-tab-item>
-        <BoardCalc :floor="Math.ceil(calBoardFloors.floors)" />
+        <BoardCalc :boardProp="boardByFloors(Math.ceil(calBoardFloors.floors),'ceil')"/>
       </v-tab-item>
-
-      <!--    
-      <v-tab-item>
-        <div class="full-floors">
-          <div>
-            <label>Thick</label>
-            <span>{{packageThickness}}</span>
-          </div>
-          <div>
-            <span>Floors</span>
-            <label>{{ calBoardFloors.fullFloors }}</label>
-          </div>
-
-          <div>
-            <label>0.5 pack</label>
-            <span>{{ packageFullFloor }}</span>
-          </div>
-
-          <div>
-            <label>1 pack</label>
-            <span>{{ packageFullFloor * 2}}</span>
-          </div>
-
-          <div>
-            <label>No. Pack</label>
-            <span>{{ packageAmount(packageFullFloor*2).fullPackageAmount}}</span>
-          </div>
-
-          <div v-if="!isEqualMax">
-            <label>Last Pack</label>
-            <span>{{packageAmount(packageFullFloor*2).lastPackageEnvelopesAmount}}</span>
-          </div>
-          <div>
-            <label>Max Board</label>
-            <span>{{ maxAmount }}</span>
-          </div>
-        </div>
-      </v-tab-item>
-      <v-tab-item>
-        <div class="floors">
-          <div>
-            <label>Thick</label>
-            <span>{{thickness}}</span>
-          </div>
-
-          <div>
-            <span>Floors</span>
-            <label>{{ calBoardFloors.floors | fixed(2) }}</label>
-          </div>
-
-          <div>
-            <label>0.5 pack</label>
-            <span>{{envelopePackageAmount / 2}}</span>
-          </div>
-
-          <div>
-            <label>1 pack</label>
-            <span>{{envelopePackageAmount}}</span>
-          </div>
-
-          <div>
-            <label>No. Pack</label>
-            <span>{{packageAmount(envelopePackageAmount).fullPackageAmount}}</span>
-          </div>
-
-          <div v-if="!isEqualMax">
-            <label>Last Pack</label>
-            <span>{{packageAmount(envelopePackageAmount).lastPackageEnvelopesAmount}}</span>
-          </div>
-        </div>
-      </v-tab-item>
-      -->
     </v-tabs-items>
   </v-container>
 </template>
@@ -135,8 +56,42 @@ export default {
       "packageAmount",
       "packageFullFloor",
       "packageThickness",
-      "calcPackageFullFloor"
+      "calcPackageFullFloor",
+      "maxEnvelopesOnBoard",
+      "calcPackageHeight",
+      "calcEnvelopesOnBoard"
     ]),
+  
+     boardByFloors : function (){
+       const ROUND = 5;
+       return  (floor,type)=> ({
+         thick : {
+           envelope : this.$store.getters.packageThickness(this.$store.getters.calcPackageFullFloor(floor)),
+           package : (this.$store.getters.packageThickness(this.$store.getters.calcPackageFullFloor(floor)) * (Math.ceil(floor) / 10)).toFixed(1)
+         },
+         package : {
+           half : this.$store.getters.calcPackageFullFloor(floor),
+           roundHalf: this.$store.getters.roundTo(this.$store.getters.calcPackageFullFloor(floor),ROUND,type),
+           full : this.$store.getters.calcPackageFullFloor(floor)*2
+         },
+         packsOnFloor: {
+           amount : this.$store.getters.packageAmount(this.$store.getters.calcPackageFullFloor(floor)*2).fullPackageAmount,
+           maxAmount : Math.ceil(floor) * this.$store.getters.boardSize
+         },
+         lastFloor : {
+           fullPacks : this.$store.getters.packageAmount(this.$store.getters.calcPackageFullFloor(floor)*2).fullPackageAmount % this.$store.getters.boardSize,
+           envelopes : this.$store.getters.packageAmount(this.$store.getters.calcPackageFullFloor(floor)*2).lastPackageEnvelopesAmount
+         },
+         totalEnvelopesOnBoard: {
+             oneFloor : this.$store.getters.boardSize * this.$store.getters.calcPackageFullFloor(floor)*2,
+             maxOnBoard : this.$store.getters.maxEnvelopesOnBoard(Math.ceil(floor))
+
+         }
+       })
+      },
+       boardByPackage : () => {
+       return 5;
+      },
     thickness: {
       get() {
         return this.$store.state.board.thickness;

@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-app-bar dense>
+    <v-app-bar dense   color="yellow">
       <v-app-bar-nav-icon v-on:click="componentDisplay.drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>Envelope Calc</v-toolbar-title>
     </v-app-bar>
