@@ -29,21 +29,25 @@ export default {
       name: "S",
       orderFrom: 1,
       orderUntil: 1000,
+      amount:0
     },
     {
       name: "N",
       orderFrom: 1,
       orderUntil: 1000,
+      amount:0
     },
     {
       name: "I",
       orderFrom: 1,
       orderUntil: 10000,
+      amount:0
     },
     {
       name: "M",
       orderFrom: 1,
       orderUntil: 10000,
+      amount:0
     },
   ],
   board: {
