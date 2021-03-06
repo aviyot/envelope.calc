@@ -292,6 +292,10 @@ export const store = new Vuex.Store({
 }, */
     toggleDisplayComp(state){
       state.componentDisplay.distribution = !state.componentDisplay.distribution;
+    },
+    resetZruphot(state){
+      state.order.zruphotAmount = 0,
+      state.order.zruphotPages = 1;
     }
   }
 });
