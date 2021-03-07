@@ -1,29 +1,15 @@
 <template>
   <v-app id="app">
-    <v-app-bar dense   color="yellow">
+    <v-app-bar dense>
       <v-app-bar-nav-icon v-on:click="componentDisplay.drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>Envelope Calc</v-toolbar-title>
     </v-app-bar>
     <v-navigation-drawer v-model="componentDisplay.drawer" absolute temporary>
       <v-list nav dense>
-        <v-list-item-group active-class="deep-purple--text text--accent-4">
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
+      <h3>Menu</h3>
       </v-list>
     </v-navigation-drawer>
-    <v-content >
+    <v-content>
       <Order class="order bg-primary text-light" />
       <v-tabs v-model="componentDisplay.tab" grow >
         <v-tab>Dist</v-tab>
