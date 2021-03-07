@@ -5,7 +5,7 @@
  </style>>
 
 <template>
-  <v-container fluid>
+  <v-container>
     <v-form>
       <v-row>
         <v-col >
@@ -16,7 +16,7 @@
           <v-text-field v-model="invoicesAmount" type="number" dense label="Invoices" required hide-details></v-text-field>
         </v-col>
         <v-col >
-          <v-switch v-model="componentDisplay.zrophot" type="number" label="Zruphot" dense hide-details></v-switch>
+          <v-switch @change="resetZruphot" v-model="componentDisplay.zrophot" type="number" label="Zruphot" dense hide-details></v-switch>
         </v-col>
       </v-row>
       <v-row v-if="componentDisplay.zrophot">
@@ -32,19 +32,13 @@
 
     <v-row>
       <v-col >
-        <span class>Ratio I/E</span>
+        <span >Ratio I/E</span> : <label >{{ratioInvoiceEnvelope}}</label>
       </v-col>
-      <v-col >
-        <label class>{{ratioInvoiceEnvelope}}</label>
-      </v-col>
-
-      <v-spacer></v-spacer>
-
+ 
       <v-col>
-        <span class>E Thick</span>
+        <span >E Thick</span> : <label>{{envelopeThickness | fixed(2)}} </label>
       </v-col>
       <v-col>
-        <label class>{{envelopeThickness | fixed(2)}} </label>
         <ThicknessSettings/>
       </v-col>
     </v-row>
@@ -52,7 +46,7 @@
 </template>
 <script>
 import ThicknessSettings from "./ThicknessSettings"
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 export default {
   name: "Order",
   components :{
@@ -63,6 +57,10 @@ export default {
       value = +value;
       return value.toFixed(size);
     }
+  },
+    methods: {
+      ...mapMutations(["resetZruphot"])
+
   },
   computed: {
     ...mapGetters(["ratioInvoiceEnvelope", "envelopeThickness"]),
