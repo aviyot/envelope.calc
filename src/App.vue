@@ -26,7 +26,16 @@
           <Board class="board" />
         </v-tab-item>
         <v-tab-item>
-          <CalcTime class="calc-time" />
+          <v-tabs v-model="componentDisplay.prodTab" grow>
+            <v-tab>amount</v-tab>
+            <v-tab>time</v-tab>
+            <v-tab>speed</v-tab>
+          </v-tabs>
+          <v-tabs-items v-model="componentDisplay.prodTab">
+            <v-tab-item> <AmountCalc class="calc-time" /> </v-tab-item>
+            <v-tab-item> <TimeCalc class="calc-time" /> </v-tab-item>
+            <v-tab-item> <SpeedCalc class="calc-time" /> </v-tab-item>
+          </v-tabs-items>
         </v-tab-item>
       </v-tabs-items>
 
@@ -64,9 +73,11 @@
 import { store } from "./store/store";
 import { mapMutations, mapState } from "vuex";
 import Order from "./components/Order";
-import CalcTime from "./components/CalcTime";
 import Board from "./components/Board";
 import Distribution from "./components/Distribution";
+import AmountCalc from "./components/AmountCalc.vue";
+import SpeedCalc from "./components/SpeedCalc.vue";
+import TimeCalc from "./components/TimeCalc.vue";
 
 export default {
   store,
@@ -78,12 +89,14 @@ export default {
   name: "App",
   components: {
     Order,
-    CalcTime,
     Board,
     Distribution,
+    AmountCalc,
+    SpeedCalc,
+    TimeCalc,
   },
   computed: {
-    ...mapState(["componentDisplay"]),
+    ...mapState(["componentDisplay", "prodTab"]),
   },
   methods: {
     ...mapMutations(["toggleDisplayComp"]),
