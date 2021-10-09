@@ -9,6 +9,7 @@
     <v-navigation-drawer v-model="componentDisplay.drawer" absolute temporary>
       <v-list nav dense>
         <h3>Menu</h3>
+        <v-btn v-on:click="restState" color="error">RESET</v-btn>
       </v-list>
     </v-navigation-drawer>
     <v-content>
@@ -62,10 +63,6 @@
         <CalcTime class="calc-time" />
       </div>-->
     </v-content>
-
-    <v-footer class="font-weight-medium" app>
-      <v-btn v-on:click="restState" color="error">RESET</v-btn>
-    </v-footer>
   </v-app>
 </template>
 
