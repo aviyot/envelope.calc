@@ -6,9 +6,18 @@
           <v-col>
             <v-text-field
               type="number"
-              label="Speed"
+              label="Speed-E"
               step="500"
               v-model="speed"
+              hide-details
+            ></v-text-field>
+          </v-col>
+          <v-col>
+            <v-text-field
+              type="number"
+              label="Speed-I"
+              step="500"
+              v-model="invoiceSpeed"
               hide-details
             ></v-text-field>
           </v-col>
@@ -69,6 +78,33 @@
               hide-details
             ></v-text-field>
           </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field
+              type="number"
+              label="Total-I"
+              v-model="totalAmountInvoice"
+              hide-details
+              disabled
+            ></v-text-field>
+          </v-col>
+          <!--   <v-col>
+            <v-text-field
+              type="number"
+              label="from-I"
+              v-model="fromAmountInvoice"
+              hide-details
+            ></v-text-field>
+          </v-col>
+          <v-col>
+            <v-text-field
+              type="number"
+              label="Until-I"
+              v-model="untilAmountInvoice"
+              hide-details
+            ></v-text-field>
+          </v-col> -->
         </v-row>
       </v-container>
     </v-card>
@@ -190,6 +226,39 @@ export default {
         }
 
         return _totalAmount;
+      },
+    },
+    invoiceSpeed: {
+      get() {
+        return (
+          this.$store.getters.ratioInvoiceEnvelope *
+          this.$store.state.amountCalc.speed
+        );
+      },
+      set(value) {
+        this.$store.commit(
+          "updateAmountCalcSpeed",
+          value / this.$store.getters.ratioInvoiceEnvelope
+        );
+      },
+    },
+    totalAmountInvoice() {
+      return this.totalAmount * this.$store.getters.ratioInvoiceEnvelope;
+    },
+    fromAmountInvoice: {
+      get() {
+        return 1;
+      },
+      set(value) {
+        return value;
+      },
+    },
+    untilAmountInvoice: {
+      get() {
+        return +this.fromAmountInvoice + this.totalAmountInvoice;
+      },
+      set(value) {
+        return value;
       },
     },
   },
