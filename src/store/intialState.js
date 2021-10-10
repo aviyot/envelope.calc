@@ -16,6 +16,12 @@ export default {
     zruphotAmount: 0,
     zruphotPages: 1,
   },
+  prod: {
+    currentProd: 10000,
+    intialProd: 10000,
+    interval: null,
+    speed: 14000,
+  },
   packaging: [
     {
       num: 1,

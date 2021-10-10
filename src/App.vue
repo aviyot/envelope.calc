@@ -27,6 +27,7 @@
           <Board class="board" />
         </v-tab-item>
         <v-tab-item>
+          <OnlineProd />
           <v-tabs v-model="componentDisplay.prodTab" grow>
             <v-tab>amount</v-tab>
             <v-tab>time</v-tab>
@@ -36,6 +37,7 @@
             <v-tab-item> <AmountCalc class="calc-time" /> </v-tab-item>
             <v-tab-item> <TimeCalc class="calc-time" /> </v-tab-item>
             <v-tab-item> <SpeedCalc class="calc-time" /> </v-tab-item>
+            <v-tab-item></v-tab-item>
           </v-tabs-items>
         </v-tab-item>
       </v-tabs-items>
@@ -75,6 +77,7 @@ import Distribution from "./components/Distribution";
 import AmountCalc from "./components/AmountCalc.vue";
 import SpeedCalc from "./components/SpeedCalc.vue";
 import TimeCalc from "./components/TimeCalc.vue";
+import OnlineProd from "./components/OnlineProd.vue";
 
 export default {
   store,
@@ -91,6 +94,7 @@ export default {
     AmountCalc,
     SpeedCalc,
     TimeCalc,
+    OnlineProd,
   },
   computed: {
     ...mapState(["componentDisplay", "prodTab"]),

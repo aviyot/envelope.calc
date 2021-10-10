@@ -451,5 +451,35 @@ export const store = new Vuex.Store({
     resetZruphot(state) {
       (state.order.zruphotAmount = 0), (state.order.zruphotPages = 1);
     },
+
+    //START online prod
+    updateIntialProd(state, intial) {
+      state.prod.intialProd = intial;
+    },
+    updateCurrentProd(state, current) {
+      state.prod.currentProd = current;
+    },
+    updateSpeedProd(state, speed) {
+      state.prod.speed = speed;
+    },
+    startProd(state, data) {
+      if (state.prod.interval) {
+        clearInterval(state.prod.interval);
+      }
+      const { speed, intialProd } = data;
+      let rate = 1 / (+speed / 3600);
+
+      state.prod.currentProd = intialProd;
+      state.prod.interval = setInterval(() => {
+        state.prod.currentProd--;
+      }, 1000 * rate);
+    },
+    stopProd(state) {
+      if (state.prod.interval) {
+        clearInterval(state.prod.interval);
+      }
+    },
+
+    //END online prod
   },
 });
