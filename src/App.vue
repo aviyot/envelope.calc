@@ -13,15 +13,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-content>
-      <Order class="order bg-primary text-light" />
       <v-tabs v-model="componentDisplay.tab" grow>
-        <v-tab>Dist</v-tab>
+        <v-tab>Order</v-tab>
         <v-tab>PACK</v-tab>
         <v-tab>prod</v-tab>
       </v-tabs>
       <v-tabs-items v-model="componentDisplay.tab">
         <v-tab-item>
-          <Distribution class="distribution" />
+          <Order />
         </v-tab-item>
         <v-tab-item>
           <Board class="board" />
@@ -71,13 +70,12 @@
 <script>
 import { store } from "./store/store";
 import { mapMutations, mapState } from "vuex";
-import Order from "./components/Order";
 import Board from "./components/Board";
-import Distribution from "./components/Distribution";
 import AmountCalc from "./components/AmountCalc.vue";
 import SpeedCalc from "./components/SpeedCalc.vue";
 import TimeCalc from "./components/TimeCalc.vue";
 import OnlineProd from "./components/OnlineProd.vue";
+import Order from "./components/Order.vue";
 
 export default {
   store,
@@ -88,13 +86,12 @@ export default {
   },
   name: "App",
   components: {
-    Order,
     Board,
-    Distribution,
     AmountCalc,
     SpeedCalc,
     TimeCalc,
     OnlineProd,
+    Order,
   },
   computed: {
     ...mapState(["componentDisplay", "prodTab"]),
