@@ -1,37 +1,39 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
-        <v-text-field
-          type="number"
-          label="Speed"
-          step="500"
-          v-model="speed"
-          hide-details
-        ></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field
-          type="number"
-          label="total"
-          v-model="intialProd"
-          hide-details
-        ></v-text-field>
-      </v-col>
-      <v-col>
-        <v-text-field
-          type="number"
-          label="Current"
-          v-model="currentProd"
-          hide-details
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    <v-btn-toggle dense group>
-      <v-btn v-on:click="startProd()">start</v-btn>
-      <v-btn v-on:click="stopProd()">stop</v-btn>
-      <v-btn v-on:click="resumeProd()">resume</v-btn>
-    </v-btn-toggle>
+    <v-card>
+      <v-row>
+        <v-col>
+          <v-text-field
+            type="number"
+            label="Speed"
+            step="500"
+            v-model="speed"
+            hide-details
+          ></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field
+            type="number"
+            label="total"
+            v-model="intialProd"
+            hide-details
+          ></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field
+            type="number"
+            label="Current"
+            v-model="currentProd"
+            hide-details
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-btn-toggle dense group>
+        <v-btn v-on:click="startProd()">start</v-btn>
+        <v-btn v-on:click="stopProd()">stop</v-btn>
+        <v-btn v-on:click="resumeProd()">resume</v-btn>
+      </v-btn-toggle>
+    </v-card>
   </v-container>
 </template>
 
