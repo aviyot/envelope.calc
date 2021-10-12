@@ -61,7 +61,7 @@ export default {
 
       set(value) {
         this.$store.commit("updateIntialProd", value);
-        this.resumeProd();
+        if (this.$store.state.prod.start) this.resumeProd();
       },
     },
     speed: {
@@ -70,7 +70,7 @@ export default {
       },
       set(value) {
         this.$store.commit("updateSpeedProd", value);
-        this.resumeProd();
+        if (this.$store.state.prod.start) this.resumeProd();
       },
     },
   },

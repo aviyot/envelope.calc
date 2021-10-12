@@ -463,21 +463,34 @@ export const store = new Vuex.Store({
       state.prod.speed = speed;
     },
     startProd(state, data) {
+      state.prod.start = true;
       if (state.prod.interval) {
         clearInterval(state.prod.interval);
       }
-      const { speed, intialProd } = data;
-      let rate = 1 / (+speed / 3600);
+      const hourMilisecond = 60 * 60 * 1000;
+      const speedMilisecond = data.speed / hourMilisecond;
 
-      state.prod.currentProd = intialProd;
+      let startTime = new Date().getTime();
+      let currentDate = new Date().getTime();
+
+      state.prod.currentProd = data.intialProd;
+
       state.prod.interval = setInterval(() => {
-        state.prod.currentProd--;
-      }, 1000 * rate);
+        currentDate = new Date().getTime();
+        state.prod.currentProd =
+          data.intialProd -
+          Math.round((currentDate - startTime) * speedMilisecond);
+        if (state.prod.currentProd < 1) {
+          state.prod.currentProd = 0;
+          clearInterval(state.prod.interval);
+        }
+      }, 100);
     },
     stopProd(state) {
-      if (state.prod.interval) {
+      if (state.prod.start && state.prod.interval) {
         clearInterval(state.prod.interval);
       }
+      state.prod.start = false;
     },
 
     //END online prod

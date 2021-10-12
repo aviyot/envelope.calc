@@ -21,6 +21,7 @@ export default {
     intialProd: 10000,
     interval: null,
     speed: 14000,
+    start: false,
   },
   packaging: [
     {
