@@ -33,6 +33,7 @@
         <v-btn v-on:click="stopProd()">stop</v-btn>
         <v-btn v-on:click="resumeProd()">resume</v-btn>
       </v-btn-toggle>
+      <v-btn v-on:click="wakeLockScreen()">screen:{{ wakeLockStatus }}</v-btn>
     </v-card>
   </v-container>
 </template>
@@ -42,6 +43,12 @@ import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "OnlineProd",
+  data: function () {
+    return {
+      wakeLock: null,
+      wakeLockStatus: "off",
+    };
+  },
   components: {},
   computed: {
     ...mapState(["componentDisplay"]),
@@ -89,6 +96,25 @@ export default {
         speed: this.$store.state.prod.speed,
         intialProd: this.$store.state.prod.currentProd,
       });
+    },
+    async wakeLockScreen() {
+      if ("wakeLock" in navigator) {
+        if (!this.wakeLock) {
+          try {
+            this.wakeLock = await navigator.wakeLock.request("screen");
+            this.wakeLockStatus = "on";
+          } catch (err) {
+            alert("wake screen inabled");
+          }
+        } else {
+          this.wakeLock.release().then(() => {
+            this.wakeLock = null;
+            this.wakeLockStatus = "off";
+          });
+        }
+      } else {
+        alert("wakeLock not support");
+      }
     },
   },
 };
