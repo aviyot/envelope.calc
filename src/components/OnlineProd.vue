@@ -99,6 +99,11 @@ export default {
     },
     async wakeLockScreen() {
       if ("wakeLock" in navigator) {
+        document.addEventListener("visibilitychange", async () => {
+          if (wakeLock !== null && document.visibilityState === "visible") {
+            wakeLock = await navigator.wakeLock.request("screen");
+          }
+        });
         if (!this.wakeLock) {
           try {
             this.wakeLock = await navigator.wakeLock.request("screen");
