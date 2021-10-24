@@ -27,17 +27,23 @@
         </v-tab-item>
         <v-tab-item>
           <OnlineProd />
-          <v-tabs v-model="componentDisplay.prodTab" grow>
-            <v-tab>amount</v-tab>
-            <v-tab>time</v-tab>
-            <v-tab>speed</v-tab>
-          </v-tabs>
-          <v-tabs-items v-model="componentDisplay.prodTab">
-            <v-tab-item> <AmountCalc class="calc-time" /> </v-tab-item>
-            <v-tab-item> <TimeCalc class="calc-time" /> </v-tab-item>
-            <v-tab-item> <SpeedCalc class="calc-time" /> </v-tab-item>
-            <v-tab-item></v-tab-item>
-          </v-tabs-items>
+          <v-btn v-on:click="togleShowCalcs">
+            <span v-if="!showCalcs"> show calcs</span>
+            <span v-if="showCalcs">hide calcs</span>
+          </v-btn>
+          <div v-if="showCalcs">
+            <v-tabs v-model="componentDisplay.prodTab" grow>
+              <v-tab>amount</v-tab>
+              <v-tab>time</v-tab>
+              <v-tab>speed</v-tab>
+            </v-tabs>
+            <v-tabs-items v-model="componentDisplay.prodTab">
+              <v-tab-item> <AmountCalc class="calc-time" /> </v-tab-item>
+              <v-tab-item> <TimeCalc class="calc-time" /> </v-tab-item>
+              <v-tab-item> <SpeedCalc class="calc-time" /> </v-tab-item>
+              <v-tab-item></v-tab-item>
+            </v-tabs-items>
+          </div>
         </v-tab-item>
       </v-tabs-items>
 
@@ -82,6 +88,7 @@ export default {
   data() {
     return {
       tab: null,
+      showCalcs: false,
     };
   },
   name: "App",
@@ -100,6 +107,9 @@ export default {
     ...mapMutations(["toggleDisplayComp"]),
     restState() {
       this.$store.commit("restState");
+    },
+    togleShowCalcs() {
+      this.showCalcs = !this.showCalcs;
     },
   },
   beforeCreate() {
