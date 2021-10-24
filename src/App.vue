@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <v-app-bar dense>
+    <v-app-bar max-height="56px">
       <v-app-bar-nav-icon
         v-on:click="componentDisplay.drawer = true"
       ></v-app-bar-nav-icon>
