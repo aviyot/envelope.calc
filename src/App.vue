@@ -8,8 +8,14 @@
     </v-app-bar>
     <v-navigation-drawer v-model="componentDisplay.drawer" absolute temporary>
       <v-list nav dense>
-        <h3>Menu</h3>
-        <v-btn v-on:click="restState" color="error">RESET</v-btn>
+        <v-divider></v-divider>
+        <v-list-item>
+          <v-icon large v-on:click="toogleTheme">mdi-palette</v-icon>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item>
+          <v-btn v-on:click="restState" color="error">RESET</v-btn>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-content>
@@ -110,6 +116,10 @@ export default {
     },
     togleShowCalcs() {
       this.showCalcs = !this.showCalcs;
+    },
+    toogleTheme() {
+      if (this.$vuetify.theme.dark) this.$vuetify.theme.dark = false;
+      else this.$vuetify.theme.dark = true;
     },
   },
   beforeCreate() {
