@@ -28,6 +28,19 @@
           ></v-text-field>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>
+          <v-text-field
+            type="number"
+            label="Update Current"
+            v-model="updateValue"
+            hide-details
+          ></v-text-field>
+        </v-col>
+        <v-col>
+          <v-btn v-on:click="updateCurrent()">update current</v-btn>
+        </v-col>
+      </v-row>
       <v-btn-toggle dense group>
         <v-btn v-on:click="startProd()">start</v-btn>
         <v-btn v-on:click="stopProd()">stop</v-btn>
@@ -47,6 +60,7 @@ export default {
     return {
       wakeLock: null,
       wakeLockStatus: "off",
+      updateValue: 0,
     };
   },
   components: {},
@@ -123,6 +137,12 @@ export default {
       } else {
         alert("wakeLock not support");
       }
+    },
+    updateCurrent() {
+      this.$store.commit("startProd", {
+        speed: this.$store.state.prod.speed,
+        intialProd: this.updateValue,
+      });
     },
   },
 };
