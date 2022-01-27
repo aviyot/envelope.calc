@@ -41,6 +41,11 @@
           <v-btn v-on:click="updateCurrent()">update current</v-btn>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>{{ durationTime }}</v-col>
+        <v-col>{{ endTime | time_hms }}</v-col>
+        <v-col></v-col>
+      </v-row>
       <v-btn-toggle dense group>
         <v-btn v-on:click="startProd()">start</v-btn>
         <v-btn v-on:click="stopProd()">stop</v-btn>
@@ -61,6 +66,9 @@ export default {
       wakeLock: null,
       wakeLockStatus: "off",
       updateValue: 0,
+      durationTime: "",
+      endTime: "",
+      interval: null,
     };
   },
   components: {},
@@ -101,15 +109,18 @@ export default {
         speed: this.$store.state.prod.speed,
         intialProd: this.$store.state.prod.intialProd,
       });
+      this.calcEndTime();
     },
     stopProd() {
       this.$store.commit("stopProd");
+      clearInterval(this.interval);
     },
     resumeProd() {
       this.$store.commit("startProd", {
         speed: this.$store.state.prod.speed,
         intialProd: this.$store.state.prod.currentProd,
       });
+      this.calcEndTime();
     },
     async wakeLockScreen() {
       if ("wakeLock" in navigator) {
@@ -143,6 +154,73 @@ export default {
         speed: this.$store.state.prod.speed,
         intialProd: this.updateValue,
       });
+      this.calcEndTime();
+    },
+    calcEndTime() {
+      const MINUTE = 60;
+      const MILISECOND = 1000;
+      const MINUTE_SPEED = this.speed / MINUTE;
+      const SECOND_SPEED = this.speed / (MINUTE * MINUTE);
+      let startTime = new Date().getTime();
+      this.endTime = new Date();
+      let totalAmount = this.currentProd;
+      let speed = this.speed;
+
+      let hours = 0;
+      let minutes = 0;
+      let seconds = 0;
+      let leftAmount = 0;
+
+      leftAmount = totalAmount % speed;
+      hours = Math.trunc(totalAmount / speed);
+
+      minutes = Math.trunc(leftAmount / MINUTE_SPEED);
+      leftAmount = leftAmount % MINUTE_SPEED;
+
+      seconds = Math.trunc(leftAmount / SECOND_SPEED);
+
+      if (hours < 10) hours = "0" + hours;
+      if (minutes < 10) minutes = "0" + minutes;
+      if (seconds < 10) seconds = "0" + seconds;
+
+      this.durationTime = hours + ":" + minutes + ":" + seconds;
+
+      if (this.interval) clearInterval(this.interval);
+
+      this.interval = setInterval(() => {
+        totalAmount = this.currentProd;
+        speed = this.speed;
+        console.log("INTERVAL");
+        leftAmount = totalAmount % speed;
+        hours = Math.trunc(totalAmount / speed);
+
+        minutes = Math.trunc(leftAmount / MINUTE_SPEED);
+        leftAmount = leftAmount % MINUTE_SPEED;
+
+        seconds = Math.trunc(leftAmount / SECOND_SPEED);
+
+        if (hours < 10) hours = "0" + hours;
+        if (minutes < 10) minutes = "0" + minutes;
+        if (seconds < 10) seconds = "0" + seconds;
+        console.log(seconds);
+        this.durationTime = hours + ":" + minutes + ":" + seconds;
+      }, 200);
+
+      let endTimeMilisescond =
+        startTime +
+        (MINUTE * MINUTE * +hours + MINUTE * +minutes + +seconds) * MILISECOND;
+      this.endTime = new Date(endTimeMilisescond);
+    },
+  },
+  filters: {
+    time_hms: function (value) {
+      const date = new Date(value);
+      if (!value) return "";
+      else {
+        return (
+          date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+        );
+      }
     },
   },
 };
