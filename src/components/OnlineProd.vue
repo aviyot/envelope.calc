@@ -185,12 +185,15 @@ export default {
 
       this.durationTime = hours + ":" + minutes + ":" + seconds;
 
-      if (this.interval) clearInterval(this.interval);
+      let endTimeMilisescond =
+        startTime +
+        (MINUTE * MINUTE * +hours + MINUTE * +minutes + +seconds) * MILISECOND;
+      this.endTime = new Date(endTimeMilisescond);
 
+      if (this.interval) clearInterval(this.interval);
       this.interval = setInterval(() => {
         totalAmount = this.currentProd;
         speed = this.speed;
-        console.log("INTERVAL");
         leftAmount = totalAmount % speed;
         hours = Math.trunc(totalAmount / speed);
 
@@ -202,14 +205,8 @@ export default {
         if (hours < 10) hours = "0" + hours;
         if (minutes < 10) minutes = "0" + minutes;
         if (seconds < 10) seconds = "0" + seconds;
-        console.log(seconds);
         this.durationTime = hours + ":" + minutes + ":" + seconds;
       }, 200);
-
-      let endTimeMilisescond =
-        startTime +
-        (MINUTE * MINUTE * +hours + MINUTE * +minutes + +seconds) * MILISECOND;
-      this.endTime = new Date(endTimeMilisescond);
     },
   },
   filters: {
@@ -217,9 +214,13 @@ export default {
       const date = new Date(value);
       if (!value) return "";
       else {
-        return (
-          date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
-        );
+        let h = date.getHours();
+        let m = date.getMinutes();
+        let s = date.getSeconds();
+        if (h < 10) h = "0" + h;
+        if (m < 10) m = "0" + m;
+        if (s < 10) s = "0" + s;
+        return h + ":" + m + ":" + s;
       }
     },
   },
